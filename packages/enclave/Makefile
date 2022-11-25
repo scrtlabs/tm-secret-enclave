@@ -9,7 +9,7 @@ FEATURES += SGX_MODE_$(SGX_MODE)
 FEATURES := $(strip $(FEATURES))
 
 
-TOP_DIR := ../
+TOP_DIR := ../..
 include $(TOP_DIR)/buildenv.mk
 
 ifeq ($(shell getconf LONG_BIT), 32)

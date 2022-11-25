@@ -1,6 +1,6 @@
 BUILD_PROFILE ?= release
 
-TOP_DIR := ../
+TOP_DIR := ./
 include $(TOP_DIR)/buildenv.mk
 
 FEATURES ?=
@@ -41,19 +41,19 @@ endif
 
 SGX_COMMON_CFLAGS += -fstack-protector
 
-CUSTOM_EDL_PATH := ../../deps/incubator-teaclave-sgx-sdk/sgx_edl/edl
+CUSTOM_EDL_PATH := deps/incubator-teaclave-sgx-sdk/sgx_edl/edl
 
 App_Include_Paths := -I./ -I./include -I$(SGX_SDK)/include -I$(CUSTOM_EDL_PATH)
 App_C_Flags := $(SGX_COMMON_CFLAGS) -fPIC -Wno-attributes $(App_Include_Paths)
 
-Enclave_Path := ../enclave
+Enclave_Path := packages/enclave
 Enclave_EDL_Products := lib/enclave/Enclave_u.c lib/enclave/Enclave_u.h
 
 .PHONY: all
 all: build cmd
 
 .PHONY: build
-build: build-rust build-go
+build: build-rust
 
 .PHONY: build-rust
 build-rust: build-enclave
@@ -62,7 +62,7 @@ build-rust: build-enclave
 	@ #this pulls out ELF symbols, 80% size reduction!
 
 .PHONY: build-enclave
-build-enclave: librust_cosmwasm_enclave.signed.so lib
+build-enclave: librust_cosmwasm_enclave.signed.so lib/libEnclave_u.a
 
 librust_cosmwasm_enclave.signed.so: inner-build-enclave
 	cp $(Enclave_Path)/$@ ./
@@ -94,7 +94,7 @@ endif
 
 .PHONY: build-go
 build-go:
-	go build -tags 'sgx' ./...
+	go build -tags 'sgx' -o main ./cmd
 
 .PHONY: cmd
 cmd:
