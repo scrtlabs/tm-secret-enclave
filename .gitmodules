@@ -1,0 +1,4 @@
+[submodule "enclave/deps/incubator-teaclave-sgx-sdk"]
+	path = deps/incubator-teaclave-sgx-sdk
+	url = https://github.com/scrtlabs/incubator-teaclave-sgx-sdk
+	branch = master
