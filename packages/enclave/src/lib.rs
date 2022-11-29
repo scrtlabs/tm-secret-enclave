@@ -3,6 +3,7 @@
 extern crate sgx_tstd as std;
 
 extern crate sgx_types;
+extern crate sgx_rand;
 //
 // use ctor::*;
 // use enclave_utils::logger::get_log_level;
@@ -28,4 +29,11 @@ use sgx_types::{sgx_status_t};
 #[no_mangle]
 pub unsafe extern "C" fn ecall_health_check() -> sgx_status_t {
     return sgx_status_t::SGX_SUCCESS;
+}
+
+/// # Safety
+/// Always use protection
+#[no_mangle]
+pub unsafe extern "C" fn ecall_generate_random() -> u64 {
+    sgx_rand::random()
 }

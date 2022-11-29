@@ -9,6 +9,7 @@ libgo_cosmwasm*
 *.h
 *.c
 lib/
+deps/
 
 # no static binaries (35MB+)
 libgo*.a

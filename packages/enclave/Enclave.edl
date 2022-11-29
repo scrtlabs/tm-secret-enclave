@@ -14,7 +14,7 @@ enclave {
     trusted {
 
         public sgx_status_t ecall_health_check();
-
+        public int64_t ecall_generate_random();
     };
 
     untrusted {

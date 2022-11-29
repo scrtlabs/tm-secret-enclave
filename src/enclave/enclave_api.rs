@@ -9,4 +9,9 @@ extern "C" {
         eid: sgx_enclave_id_t,
         retval: *mut sgx_status_t,
     ) -> sgx_status_t;
+
+    pub fn ecall_generate_random(
+        eid: sgx_enclave_id_t,
+        retval: *mut u64,
+    ) -> u64;
 }

@@ -1,4 +1,4 @@
-//go:build sgx
+//go:build !sgx
 
 package api
 

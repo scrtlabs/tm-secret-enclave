@@ -1,7 +1,6 @@
 mod error;
 mod logger;
 mod memory;
-/// cbindgen:ignore
 mod enclave;
 
 use logger::get_log_level;
@@ -15,7 +14,7 @@ use crate::error::{clear_error, handle_c_error, handle_c_error_default, set_erro
 
 use ctor::ctor;
 use log::*;
-use crate::enclave::functions::health_check;
+use crate::enclave::functions::{health_check, random_number};
 
 #[ctor]
 fn init_logger() {
@@ -27,6 +26,20 @@ fn init_logger() {
 pub extern "C" fn get_health_check(err: Option<&mut Buffer>) -> Buffer {
 
     match health_check() {
+        Err(e) => {
+            set_error(Error::enclave_err(e.to_string()), err);
+            Buffer::default()
+        }
+        Ok(res) => {
+            clear_error();
+            Buffer::from_vec(format!("{:?}", res).into_bytes())
+        }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn get_random_number(err: Option<&mut Buffer>) -> Buffer {
+    match random_number() {
         Err(e) => {
             set_error(Error::enclave_err(e.to_string()), err);
             Buffer::default()

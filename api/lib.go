@@ -1,4 +1,4 @@
-//go:build sgx
+//go:build !sgx
 
 package api
 
@@ -9,7 +9,6 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"syscall"
 )
 
 // nice aliases to the rust names
@@ -25,31 +24,32 @@ type (
 	cint   = C.int
 )
 
+//func GetHealthCheck() (int64, error) {
+//	errmsg := C.Buffer{}
+//
+//	res, err := C.get_health_check(&errmsg)
+//	if err != nil {
+//		return 0, errorWithMessage(err, errmsg)
+//	}
+//
+//	vec := receiveVector(res)
+//	data := binary.BigEndian.Uint64(vec)
+//	fmt.Println(data)
+//
+//	return int64(data), nil
+//}
+
 func GetRandom() (int64, error) {
 	errmsg := C.Buffer{}
 
-	res, err := C.get_health_check(&errmsg)
+	res, err := C.get_random_number(&errmsg)
 	if err != nil {
-		return 0, errorWithMessage(err, errmsg)
+		return 0, fmt.Errorf("error")
 	}
 
 	vec := receiveVector(res)
 	data := binary.BigEndian.Uint64(vec)
-	fmt.Println(data)
+	fmt.Println("Got data from enclave:", data, "\n")
 
 	return int64(data), nil
-}
-
-/**** To error module ***/
-
-func errorWithMessage(err error, b C.Buffer) error {
-	// this checks for out of gas as a special case
-	if errno, ok := err.(syscall.Errno); ok && int(errno) == 2 {
-		panic("Wtf please go away")
-	}
-	msg := receiveVector(b)
-	if msg == nil {
-		return err
-	}
-	return fmt.Errorf("%s", string(msg))
 }

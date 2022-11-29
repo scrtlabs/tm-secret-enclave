@@ -1,10 +1,9 @@
 use sgx_types::sgx_status_t;
 use crate::enclave::consts::ENCLAVE_FILE_NAME;
-use crate::enclave::enclave_api::ecall_health_check;
+use crate::enclave::enclave_api::{ecall_health_check, ecall_generate_random};
 use crate::enclave::init::init_enclave;
 
 pub fn health_check() -> Result<Vec<u8>, crate::Error> {
-
     let enclave = init_enclave(ENCLAVE_FILE_NAME).unwrap();
 
     let eid = enclave.geteid();
@@ -29,4 +28,19 @@ pub fn health_check() -> Result<Vec<u8>, crate::Error> {
     let result: u64 = 42;
 
     return Ok(result.to_be_bytes().to_vec())
+}
+
+pub fn random_number() -> Result<u64, crate::Error> {
+    let enclave = init_enclave(ENCLAVE_FILE_NAME).unwrap();
+
+    let eid = enclave.geteid();
+    let mut retval: u64 = 0;
+    let status = unsafe {
+        ecall_generate_random(
+            eid,
+            &mut retval,
+        )
+    };
+
+    return Ok(retval)
 }
