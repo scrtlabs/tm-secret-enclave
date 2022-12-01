@@ -1,4 +1,4 @@
-librust_cosmwasm_enclave.so
+tendermint_enclave.so
 {
     global:
         g_global_data_sim;
