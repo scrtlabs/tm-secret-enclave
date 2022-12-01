@@ -4,16 +4,21 @@ mod memory;
 mod enclave;
 
 use logger::get_log_level;
-pub use memory::{free_rust, Buffer};
+pub use memory::{
+    // free_rust,
+    Buffer
+};
 
-use std::convert::TryInto;
-use std::panic::{catch_unwind, AssertUnwindSafe};
-use std::str::from_utf8;
+// use std::convert::TryInto;
+// use std::panic::{catch_unwind, AssertUnwindSafe};
+// use std::str::from_utf8;
 
-use crate::error::{clear_error, handle_c_error, handle_c_error_default, set_error, Error};
+use crate::error::{clear_error,
+                   // handle_c_error, handle_c_error_default,
+                   set_error, Error};
 
 use ctor::ctor;
-use log::*;
+// use log::*;
 use crate::enclave::functions::{health_check, random_number};
 
 #[ctor]

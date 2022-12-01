@@ -3,7 +3,7 @@
 extern crate sgx_tstd as std;
 
 extern crate sgx_types;
-extern crate sgx_rand;
+// extern crate sgx_rand;
 //
 // use ctor::*;
 // use enclave_utils::logger::get_log_level;

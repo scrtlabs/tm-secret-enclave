@@ -2,8 +2,9 @@ use sgx_types::sgx_status_t;
 use crate::enclave::consts::ENCLAVE_FILE_NAME;
 use crate::enclave::enclave_api::{ecall_health_check, ecall_generate_random};
 use crate::enclave::init::init_enclave;
+use crate::Error;
 
-pub fn health_check() -> Result<Vec<u8>, crate::Error> {
+pub fn health_check() -> Result<Vec<u8>, Error> {
     let enclave = init_enclave(ENCLAVE_FILE_NAME).unwrap();
 
     let eid = enclave.geteid();
@@ -31,11 +32,13 @@ pub fn health_check() -> Result<Vec<u8>, crate::Error> {
 }
 
 pub fn random_number() -> Result<u64, crate::Error> {
-    let enclave = init_enclave(ENCLAVE_FILE_NAME).unwrap();
+    let enclave = init_enclave(ENCLAVE_FILE_NAME).map_err(
+        |_| Error::enclave_err("sgx not available")
+    )?;
 
     let eid = enclave.geteid();
     let mut retval: u64 = 0;
-    let status = unsafe {
+    let _status = unsafe {
         ecall_generate_random(
             eid,
             &mut retval,
