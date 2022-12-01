@@ -2,3 +2,6 @@
 	path = deps/incubator-teaclave-sgx-sdk
 	url = https://github.com/scrtlabs/incubator-teaclave-sgx-sdk
 	branch = master
+[submodule "deps/incubator-teaclave-sgx-sdk"]
+	path = deps/incubator-teaclave-sgx-sdk
+	url = https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git
