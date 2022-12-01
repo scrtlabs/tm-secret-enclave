@@ -35,5 +35,6 @@ pub unsafe extern "C" fn ecall_health_check() -> sgx_status_t {
 /// Always use protection
 #[no_mangle]
 pub unsafe extern "C" fn ecall_generate_random() -> u64 {
-    sgx_rand::random()
+    43
+    // sgx_rand::random()
 }
