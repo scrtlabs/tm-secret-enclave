@@ -60,7 +60,3 @@ struct Buffer get_random_number(struct Buffer *err);
 struct Buffer allocate_rust(const uint8_t *ptr, uintptr_t length);
 
 void free_rust(struct Buffer buf);
-
-//extern sgx_status_t ecall_health_check(sgx_enclave_id_t eid, sgx_status_t *retval);
-//
-//extern uint64_t ecall_generate_random(sgx_enclave_id_t eid, uint64_t *retval);

@@ -53,7 +53,13 @@ include = [
     "GoResult",
     "ErrnoValue",
 ]
-exclude = []
+
+# we want to expose to go only the 'src/enclave' wrapper
+# interface, and not the actual enclave in 'packages/enclave'
+exclude = [
+    "ecall_health_check",
+    "ecall_generate_random",
+]
 # prefix = "CAPI_"
 item_types = []
 renaming_overrides_prefixing = false
