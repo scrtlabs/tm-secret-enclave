@@ -218,6 +218,7 @@ dependencies = [
  "num-bigint",
  "serde",
  "serde_json",
+ "sgx_trts",
  "sgx_tstd",
  "sgx_types",
  "simple_logger",

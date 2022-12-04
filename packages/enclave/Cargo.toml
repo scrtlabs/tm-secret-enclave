@@ -21,7 +21,7 @@ production = ["SGX_MODE_HW"]
 [target.'cfg(not(target_env = "sgx"))'.dependencies]
 sgx_tstd = { rev = "d2d339cbb005f676bb700059bd51dc689c025f6b", git = "https://github.com/apache/teaclave-sgx-sdk.git", features = [] }
 sgx_types = { rev = "d2d339cbb005f676bb700059bd51dc689c025f6b", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
-sgx_trts = { rev = "d2d339cbb005f676bb700059bd51dc689c025f6b", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_trts = { path = "../../deps/incubator-teaclave-sgx-sdk/sgx_trts" }
 
 [dependencies]
 serde = { git = "https://github.com/mesalock-linux/serde-sgx", features = [
