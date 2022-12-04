@@ -39,7 +39,7 @@ type (
 //	return int64(data), nil
 //}
 
-func GetRandom() (int64, error) {
+func GetRandom() (uint64, error) {
 	errmsg := C.Buffer{}
 
 	res, err := C.get_random_number(&errmsg)
@@ -51,5 +51,5 @@ func GetRandom() (int64, error) {
 	data := binary.BigEndian.Uint64(vec)
 	fmt.Println("Got data from enclave:", data, "\n")
 
-	return int64(data), nil
+	return data, nil
 }

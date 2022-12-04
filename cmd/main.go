@@ -7,7 +7,7 @@ import (
 
 // This is just a demo to ensure we can compile a static go binary
 func main() {
-	fmt.Println("Attempting to get data from the enclave:")
+	fmt.Println("Attempting to get data from the enclave")
 	random, err := enclave.GetRandom()
 	if err != nil {
 		return
