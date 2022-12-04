@@ -1,6 +1,6 @@
 /target
 packages/enclave/target
-api/librandom_api.so
+
 
 **/*.rs.bk
 *.iml
