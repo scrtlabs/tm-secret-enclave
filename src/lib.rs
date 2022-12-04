@@ -51,7 +51,7 @@ pub extern "C" fn get_random_number(err: Option<&mut Buffer>) -> Buffer {
         }
         Ok(res) => {
             clear_error();
-            Buffer::from_vec(format!("{:?}", res).into_bytes())
+            Buffer::from_vec(res.to_be_bytes().to_vec())
         }
     }
 }
