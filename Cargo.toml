@@ -29,6 +29,7 @@ log = "0.4.17"
 
 sgx_types = { path = "deps/incubator-teaclave-sgx-sdk/sgx_types" }
 sgx_urts = { path = "deps/incubator-teaclave-sgx-sdk/sgx_urts" }
+sgx_trts = { path = "deps/incubator-teaclave-sgx-sdk/sgx_trts" }
 
 [dev-dependencies]
 serde = { version = "1.0.103", default-features = false, features = ["derive"] }

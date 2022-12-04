@@ -9,6 +9,7 @@ extern crate sgx_types;
 // use enclave_utils::logger::get_log_level;
 
 use sgx_types::{sgx_status_t};
+use sgx_trts::trts::rsgx_read_rand;
 
 // #[cfg(feature = "production")]
 // #[ctor]
@@ -35,6 +36,10 @@ pub unsafe extern "C" fn ecall_health_check() -> sgx_status_t {
 /// Always use protection
 #[no_mangle]
 pub unsafe extern "C" fn ecall_generate_random() -> u64 {
-    43
-    // sgx_rand::random()
+    let mut rand_buf: [u8; 8] = [0; 8];
+
+    match rsgx_read_rand(&mut rand_buf) {
+        Ok(_) => u64::from_be_bytes(rand_buf),
+        Err(_) => 0
+    }
 }
