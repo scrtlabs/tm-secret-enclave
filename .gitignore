@@ -1,13 +1,13 @@
 /target
 packages/enclave/target
 
-
 **/*.rs.bk
 *.iml
 .idea
 libgo_cosmwasm*
 
 *.so
+!packages/enclave/tendermint_enclave.signed.so
 *.o
 *.h
 *.c
