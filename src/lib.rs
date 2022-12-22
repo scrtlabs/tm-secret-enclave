@@ -66,7 +66,7 @@ pub extern "C" fn submit_next_validator_set(val_set: Buffer, err: Option<&mut Bu
         Some(r) => r,
     };
 
-    match next_validator_set() {
+    match next_validator_set(val_set_slice) {
         Err(e) => {
             set_error(Error::enclave_err(e.to_string()), err);
             return;
