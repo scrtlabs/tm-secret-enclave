@@ -41,7 +41,7 @@ pub fn random_number() -> Result<u64, crate::Error> {
 }
 
 pub fn next_validator_set(val_set: &[u8]) -> SgxResult<()> {
-    let enclave = init_enclave(ENCLAVE_FILE_NAME)?; //.map_err(|_| Error::enclave_err("sgx not available"))?;
+    let enclave = init_enclave(ENCLAVE_FILE_NAME)?;
 
     let eid = enclave.geteid();
     let mut retval = sgx_status_t::SGX_SUCCESS;
