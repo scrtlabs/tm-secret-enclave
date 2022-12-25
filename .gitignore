@@ -7,7 +7,6 @@ packages/enclave/target
 libgo_cosmwasm*
 
 *.so
-!tendermint_enclave.signed.so
 *.o
 *.h
 *.c
@@ -21,3 +20,4 @@ tmp
 a.out
 
 
+main
