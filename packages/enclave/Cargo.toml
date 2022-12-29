@@ -31,7 +31,6 @@ serde = { git = "https://github.com/mesalock-linux/serde-sgx", features = [
 serde_json = { git = "https://github.com/mesalock-linux/serde-json-sgx" }
 ctor = "0.1.13"
 derive_more = "0.99"
-prost = "0.11.5"
 tendermint = { version = "0.28.0", default-features = false }
 tendermint-proto = { version = "0.28.0", default-features = false }
 

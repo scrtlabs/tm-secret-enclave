@@ -64,7 +64,7 @@ func SubmitNextValidatorSet(valSet []byte) error {
 		return fmt.Errorf("error")
 	}
 
-	fmt.Println("Called enclave, not errors")
+	fmt.Println("Called enclave, no errors")
 
 	return nil
 }
