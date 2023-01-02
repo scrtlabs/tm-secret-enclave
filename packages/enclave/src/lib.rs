@@ -62,7 +62,10 @@ pub unsafe extern "C" fn ecall_submit_validator_set(
     // As of now this is not working because of a difference in behavior between tendermint and tendermint-rs
     // Ref: https://github.com/informalsystems/tendermint-rs/issues/1255
     match Set::decode(val_set_slice) {
-        Ok(vs) => println!("this is a validator set from within the enclave: {:?}", vs),
+        Ok(vs) => {
+            println!("this is a validator set from within the enclave: {:?}", vs);
+            println!("the validator set hash: {:?}", vs.hash());
+        }
         Err(e) => println!("error decoding validator set: {:?}", e),
     };
 
