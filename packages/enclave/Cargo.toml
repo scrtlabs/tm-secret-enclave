@@ -47,6 +47,10 @@ simple_logger = { version = "2.3.0", default-features = false, features = [
   "stderr",
 ] }
 
+[patch.crates-io]
+tendermint = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "fix-val-set-parsing" }
+tendermint-proto = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "fix-val-set-parsing" }
+
 [patch.'https://github.com/apache/teaclave-sgx-sdk.git']
 sgx_align_struct_attribute = { path = "../../deps/incubator-teaclave-sgx-sdk/sgx_align_struct_attribute" }
 sgx_alloc = { path = "../../deps/incubator-teaclave-sgx-sdk/sgx_alloc" }
