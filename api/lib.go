@@ -53,3 +53,18 @@ func GetRandom() (uint64, error) {
 
 	return data, nil
 }
+
+func SubmitNextValidatorSet(valSet []byte) error {
+	errmsg := C.Buffer{}
+	valSetSlice := sendSlice(valSet)
+	defer freeAfterSend(valSetSlice)
+
+	C.submit_next_validator_set(valSetSlice, &errmsg)
+	if errmsg.len != 0 {
+		return fmt.Errorf("error")
+	}
+
+	fmt.Println("Called enclave, no errors")
+
+	return nil
+}

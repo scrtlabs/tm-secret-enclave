@@ -1,11 +1,12 @@
 use errno::{set_errno, Errno};
 
-use snafu::Snafu;
 use crate::error::Error::{
     // EmptyArg,
-    GoCwEnclaveError, InvalidUtf8,
+    GoCwEnclaveError,
+    InvalidUtf8,
     // OutOfGas, Panic, VmErr
 };
+use snafu::Snafu;
 
 use crate::memory::Buffer;
 
@@ -49,9 +50,9 @@ pub enum Error {
 }
 
 impl Error {
-    // pub fn empty_arg<T: Into<String>>(name: T) -> Self {
-    //     EmptyArg { name: name.into() }
-    // }
+    pub fn empty_arg<T: Into<String>>(name: T) -> Self {
+        Self::EmptyArg { name: name.into() }
+    }
 
     pub fn invalid_utf8<S: ToString>(msg: S) -> Self {
         InvalidUtf8 {
