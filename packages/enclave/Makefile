@@ -105,12 +105,12 @@ endif
 all: enclave
 
 .PHONY: enclave
-enclave: librust_cosmwasm_enclave.signed.so
+enclave: tendermint_enclave.signed.so
 
-librust_cosmwasm_enclave.signed.so: librust_cosmwasm_enclave.so $(ENCLAVE_CONFIG)
+tendermint_enclave.signed.so: tendermint_enclave.so $(ENCLAVE_CONFIG)
 	sgx_sign sign -key Enclave_private.pem -enclave $< -out $@ -config $(ENCLAVE_CONFIG)
 
-librust_cosmwasm_enclave.so: $(CUSTOM_LIBRARY_PATH)/libenclave.a Enclave_t.o
+tendermint_enclave.so: $(CUSTOM_LIBRARY_PATH)/libenclave.a Enclave_t.o
 	$(CXX) Enclave_t.o -o $@ $(RustEnclave_Link_Flags)
 
 $(CUSTOM_LIBRARY_PATH)/libenclave.a: $(CUSTOM_LIBRARY_PATH) $(Rust_Crate_Source)

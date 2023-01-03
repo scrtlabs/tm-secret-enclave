@@ -62,9 +62,9 @@ build-rust: build-enclave
 	@ #this pulls out ELF symbols, 80% size reduction!
 
 .PHONY: build-enclave
-build-enclave: librust_cosmwasm_enclave.signed.so lib/libEnclave_u.a
+build-enclave: tendermint_enclave.signed.so lib/libEnclave_u.a
 
-librust_cosmwasm_enclave.signed.so: inner-build-enclave
+tendermint_enclave.signed.so: inner-build-enclave
 	cp $(Enclave_Path)/$@ ./
 
 .PHONY: inner-build-enclave
@@ -98,7 +98,7 @@ build-go:
 
 .PHONY: cmd
 cmd:
-	RUST_BACKTRACE=1 go build -o main -buildmode=pie -ldflags "-linkmode=external -extldflags '-static-pie'" ./cmd
+	RUST_BACKTRACE=1 go build -o main ./cmd
 
 .PHONY: docker-image-alpine
 docker-image-alpine:

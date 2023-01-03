@@ -55,6 +55,10 @@ typedef struct Buffer {
 
 struct Buffer get_health_check(struct Buffer *err);
 
+struct Buffer get_random_number(struct Buffer *err);
+
+void submit_next_validator_set(struct Buffer val_set, struct Buffer *err);
+
 struct Buffer allocate_rust(const uint8_t *ptr, uintptr_t length);
 
 void free_rust(struct Buffer buf);

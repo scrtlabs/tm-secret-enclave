@@ -1,6 +1,6 @@
 use std::fmt;
 
-use crate::Buffer;
+// use crate::Buffer;
 
 /// This enum gives names to the status codes returned from Go callbacks to Rust.
 ///

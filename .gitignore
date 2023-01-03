@@ -1,4 +1,6 @@
 /target
+packages/enclave/target
+
 **/*.rs.bk
 *.iml
 .idea
@@ -16,3 +18,6 @@ libgo*.a
 muslc.exe
 tmp
 a.out
+main
+
+!api/librandom_api.so

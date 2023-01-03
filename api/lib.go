@@ -9,7 +9,6 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"syscall"
 )
 
 // nice aliases to the rust names
@@ -25,31 +24,47 @@ type (
 	cint   = C.int
 )
 
-func GetRandom() (int64, error) {
+//func GetHealthCheck() (int64, error) {
+//	errmsg := C.Buffer{}
+//
+//	res, err := C.get_health_check(&errmsg)
+//	if err != nil {
+//		return 0, errorWithMessage(err, errmsg)
+//	}
+//
+//	vec := receiveVector(res)
+//	data := binary.BigEndian.Uint64(vec)
+//	fmt.Println(data)
+//
+//	return int64(data), nil
+//}
+
+func GetRandom() (uint64, error) {
 	errmsg := C.Buffer{}
 
-	res, err := C.get_health_check(&errmsg)
+	res, err := C.get_random_number(&errmsg)
 	if err != nil {
-		return 0, errorWithMessage(err, errmsg)
+		return 0, fmt.Errorf("error")
 	}
 
 	vec := receiveVector(res)
 	data := binary.BigEndian.Uint64(vec)
-	fmt.Println(data)
+	fmt.Println("Got data from enclave:", data, "\n")
 
-	return int64(data), nil
+	return data, nil
 }
 
-/**** To error module ***/
+func SubmitNextValidatorSet(valSet []byte) error {
+	errmsg := C.Buffer{}
+	valSetSlice := sendSlice(valSet)
+	defer freeAfterSend(valSetSlice)
 
-func errorWithMessage(err error, b C.Buffer) error {
-	// this checks for out of gas as a special case
-	if errno, ok := err.(syscall.Errno); ok && int(errno) == 2 {
-		panic("Wtf please go away")
+	C.submit_next_validator_set(valSetSlice, &errmsg)
+	if errmsg.len != 0 {
+		return fmt.Errorf("error")
 	}
-	msg := receiveVector(b)
-	if msg == nil {
-		return err
-	}
-	return fmt.Errorf("%s", string(msg))
+
+	fmt.Println("Called enclave, no errors")
+
+	return nil
 }

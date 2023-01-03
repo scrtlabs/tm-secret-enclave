@@ -2,6 +2,10 @@
 
 package api
 
-func GetRandom() (int64, error) {
+func GetRandom() (uint64, error) {
 	return 0, nil
+}
+
+func SubmitNextValidatorSet(valSet []byte) error {
+	return nil
 }

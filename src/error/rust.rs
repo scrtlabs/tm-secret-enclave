@@ -1,7 +1,12 @@
 use errno::{set_errno, Errno};
 
+use crate::error::Error::{
+    // EmptyArg,
+    GoCwEnclaveError,
+    InvalidUtf8,
+    // OutOfGas, Panic, VmErr
+};
 use snafu::Snafu;
-use crate::error::Error::{EmptyArg, GoCwEnclaveError, InvalidUtf8, OutOfGas, Panic, VmErr};
 
 use crate::memory::Buffer;
 
@@ -46,7 +51,7 @@ pub enum Error {
 
 impl Error {
     pub fn empty_arg<T: Into<String>>(name: T) -> Self {
-        EmptyArg { name: name.into() }
+        Self::EmptyArg { name: name.into() }
     }
 
     pub fn invalid_utf8<S: ToString>(msg: S) -> Self {
@@ -55,15 +60,15 @@ impl Error {
         }
     }
 
-    pub fn panic() -> Self {
-        Panic {}
-    }
+    // pub fn panic() -> Self {
+    //     Panic {}
+    // }
 
-    pub fn vm_err<S: ToString>(msg: S) -> Self {
-        VmErr {
-            msg: msg.to_string(),
-        }
-    }
+    // pub fn vm_err<S: ToString>(msg: S) -> Self {
+    //     VmErr {
+    //         msg: msg.to_string(),
+    //     }
+    // }
 
     pub fn enclave_err<S: ToString>(msg: S) -> Self {
         GoCwEnclaveError {
@@ -71,9 +76,9 @@ impl Error {
         }
     }
 
-    pub fn out_of_gas() -> Self {
-        OutOfGas {}
-    }
+    // pub fn out_of_gas() -> Self {
+    //     OutOfGas {}
+    // }
 }
 
 impl From<std::str::Utf8Error> for Error {
@@ -114,40 +119,40 @@ pub fn set_error(err: Error, errout: Option<&mut Buffer>) {
 
 /// If `result` is Ok, this returns the binary representation of the Ok value and clears the error in `errout`.
 /// Otherwise it returns an empty vector and writes the error to `errout`.
-pub fn handle_c_error<T>(result: Result<T, Error>, errout: Option<&mut Buffer>) -> Vec<u8>
-where
-    T: Into<Vec<u8>>,
-{
-    match result {
-        Ok(value) => {
-            clear_error();
-            value.into()
-        }
-        Err(error) => {
-            set_error(error, errout);
-            Vec::new()
-        }
-    }
-}
+// pub fn handle_c_error<T>(result: Result<T, Error>, errout: Option<&mut Buffer>) -> Vec<u8>
+// where
+//     T: Into<Vec<u8>>,
+// {
+//     match result {
+//         Ok(value) => {
+//             clear_error();
+//             value.into()
+//         }
+//         Err(error) => {
+//             set_error(error, errout);
+//             Vec::new()
+//         }
+//     }
+// }
 
-pub fn handle_c_error_default<T>(
-    result: Result<T, Error>,
-    errout: Option<&mut Buffer>,
-) -> T
-    where
-        T: Default,
-{
-    match result {
-        Ok(value) => {
-            clear_error();
-            value
-        }
-        Err(error) => {
-            set_error(error, errout);
-            Default::default()
-        }
-    }
-}
+// pub fn handle_c_error_default<T>(
+//     result: Result<T, Error>,
+//     errout: Option<&mut Buffer>,
+// ) -> T
+//     where
+//         T: Default,
+// {
+//     match result {
+//         Ok(value) => {
+//             clear_error();
+//             value
+//         }
+//         Err(error) => {
+//             set_error(error, errout);
+//             Default::default()
+//         }
+//     }
+// }
 
 #[cfg(test)]
 mod tests {
