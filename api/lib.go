@@ -24,6 +24,11 @@ type (
 	cint   = C.int
 )
 
+type EnclaveRandom struct {
+	Random []byte `json:"random"`
+	Proof  []byte `json:"proof"`
+}
+
 //func GetHealthCheck() (int64, error) {
 //	errmsg := C.Buffer{}
 //
@@ -39,19 +44,34 @@ type (
 //	return int64(data), nil
 //}
 
-func GetRandom() (uint64, error) {
-	errmsg := C.Buffer{}
+func ValidateRandom(encryptedRandom []byte) bool {
+	// errmsg := C.Buffer{}
+	encryptedRandomSlice := sendSlice(encryptedRandom)
+	defer freeAfterSend(encryptedRandomSlice)
 
-	res, err := C.get_random_number(&errmsg)
+	res := C.validate_random(encryptedRandomSlice)
+	return res
+	//if err != nil {
+	//	//todo: log or return error
+	//	return false
+	//}
+	//
+	//return true
+}
+
+func GetRandom() ([]byte, error) {
+	//errmsg := C.Buffer{}
+
+	res, err := C.get_random_number()
 	if err != nil {
-		return 0, fmt.Errorf("error")
+		return nil, fmt.Errorf("error")
 	}
 
 	vec := receiveVector(res)
 	data := binary.BigEndian.Uint64(vec)
 	fmt.Println("Got data from enclave:", data, "\n")
 
-	return data, nil
+	return vec, nil
 }
 
 func SubmitNextValidatorSet(valSet []byte) error {

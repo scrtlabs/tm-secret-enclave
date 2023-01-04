@@ -2,10 +2,19 @@
 
 package api
 
-func GetRandom() (uint64, error) {
-	return 0, nil
+//type EnclaveRandom struct {
+//	Random []byte `json:"random"`
+//	Proof  []byte `json:"proof"`
+//}
+
+func GetRandom() ([]byte, error) {
+	return nil, nil
 }
 
 func SubmitNextValidatorSet(valSet []byte) error {
 	return nil
+}
+
+func ValidateRandom(enclaveRandom []byte) bool {
+	return true
 }

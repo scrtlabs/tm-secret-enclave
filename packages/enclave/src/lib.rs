@@ -1,3 +1,5 @@
+mod keys;
+
 // Trick to get the IDE to use sgx_tstd even when it doesn't know we're targeting SGX
 #[cfg(not(target_env = "sgx"))]
 extern crate sgx_tstd as std;
@@ -15,6 +17,9 @@ use sgx_trts::trts::rsgx_read_rand;
 use sgx_types::sgx_status_t;
 use tendermint::validator::Set;
 use tendermint_proto::Protobuf;
+
+use tm_enclave_proto::tm_proto::random::EncryptedRandom;
+use tm_enclave_proto::tm_proto::voteset::VoteSet;
 
 // #[cfg(feature = "production")]
 // #[ctor]
@@ -71,3 +76,49 @@ pub unsafe extern "C" fn ecall_submit_validator_set(
 
     sgx_status_t::SGX_SUCCESS
 }
+
+
+/// # Safety
+/// Always use protection
+#[no_mangle]
+pub unsafe extern "C" fn ecall_submit_block_header(
+    block_header: *const u8,
+    block_header_len: u32,
+) -> sgx_status_t {
+    let val_set_slice = slice::from_raw_parts(block_header, block_header_len as usize);
+
+    // As of now this is not working because of a difference in behavior between tendermint and tendermint-rs
+    // Ref: https://github.com/informalsystems/tendermint-rs/issues/1255
+    match Set::decode(val_set_slice) {
+        Ok(vs) => {
+            println!("this is a validator set from within the enclave: {:?}", vs);
+            println!("the validator set hash: {:?}", vs.hash());
+        }
+        Err(e) => println!("error decoding validator set: {:?}", e),
+    };
+
+    sgx_status_t::SGX_SUCCESS
+}
+
+/// # Safety
+/// Always use protection
+#[no_mangle]
+pub unsafe extern "C" fn ecall_validate_encrypted_random(
+    encrypted_random: *const u8,
+    encrypted_random_len: u32,
+) -> sgx_status_t {
+    let encrypted_random_slice = slice::from_raw_parts(encrypted_random, encrypted_random_len as usize);
+
+    // As of now this is not working because of a difference in behavior between tendermint and tendermint-rs
+    // Ref: https://github.com/informalsystems/tendermint-rs/issues/1255
+    match EncryptedRandom::decode(encrypted_random_slice) {
+        Ok(vs) => {
+            println!("this is a validator set from within the enclave: {:?}", vs);
+            //println!("the validator set hash: {:?}", vs.hash());
+        }
+        Err(e) => println!("error decoding validator set: {:?}", e),
+    };
+
+    sgx_status_t::SGX_SUCCESS
+}
+

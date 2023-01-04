@@ -55,9 +55,16 @@ typedef struct Buffer {
 
 struct Buffer get_health_check(struct Buffer *err);
 
+bool validate_random(struct Buffer random_number);
+
 struct Buffer get_random_number(struct Buffer *err);
 
 void submit_next_validator_set(struct Buffer val_set, struct Buffer *err);
+
+extern sgx_status_t ecall_validate_encrypted_random(sgx_enclave_id_t eid,
+                                                    sgx_status_t *retval,
+                                                    const uint8_t *encrypted_random,
+                                                    uint32_t encrypted_random_len);
 
 struct Buffer allocate_rust(const uint8_t *ptr, uintptr_t length);
 

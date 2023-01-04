@@ -1,7 +1,5 @@
 use crate::enclave::consts::ENCLAVE_FILE_NAME;
-use crate::enclave::enclave_api::{
-    ecall_generate_random, ecall_health_check, ecall_submit_validator_set,
-};
+use crate::enclave::enclave_api::{ecall_generate_random, ecall_health_check, ecall_submit_validator_set, ecall_validate_encrypted_random};
 use crate::enclave::init::init_enclave;
 use crate::Error;
 use sgx_types::{sgx_status_t, SgxResult};
@@ -47,6 +45,26 @@ pub fn next_validator_set(val_set: &[u8]) -> SgxResult<()> {
     let mut retval = sgx_status_t::SGX_SUCCESS;
     let status = unsafe {
         ecall_submit_validator_set(eid, &mut retval, val_set.as_ptr(), val_set.len() as u32)
+    };
+
+    if status != sgx_status_t::SGX_SUCCESS {
+        return Err(status);
+    }
+
+    if retval != sgx_status_t::SGX_SUCCESS {
+        return Err(retval);
+    }
+
+    return Ok(());
+}
+
+pub fn verify_random_number(encrypted_random: &[u8]) -> SgxResult<()> {
+    let enclave = init_enclave(ENCLAVE_FILE_NAME)?;
+
+    let eid = enclave.geteid();
+    let mut retval = sgx_status_t::SGX_SUCCESS;
+    let status = unsafe {
+        ecall_validate_encrypted_random(eid, &mut retval, encrypted_random.as_ptr(), encrypted_random.len() as u32)
     };
 
     if status != sgx_status_t::SGX_SUCCESS {

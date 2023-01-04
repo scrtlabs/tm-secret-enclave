@@ -47,9 +47,13 @@ simple_logger = { version = "2.3.0", default-features = false, features = [
   "stderr",
 ] }
 
+enclave_crypto = { version = "1.6.0", git = "https://github.com/scrtlabs/SecretNetwork" }
+tm-enclave-proto = { path = "./proto" }
+
 [patch.crates-io]
 tendermint = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "fix-val-set-parsing" }
 tendermint-proto = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "fix-val-set-parsing" }
+
 
 [patch.'https://github.com/apache/teaclave-sgx-sdk.git']
 sgx_align_struct_attribute = { path = "../../deps/incubator-teaclave-sgx-sdk/sgx_align_struct_attribute" }

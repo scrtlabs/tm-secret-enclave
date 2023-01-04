@@ -1,0 +1,28 @@
+[package]
+name = "tm-enclave-proto"
+version = "0.0.1"
+authors = ["SCRT Labs <info@scrtlabs.com>"]
+edition = "2018"
+license = "Apache-2.0"
+repository = "https://github.com/scrtlabs/tm-secret-enclave/packages/enclave/proto"
+readme     = "README.md"
+categories = []
+keywords   = []
+
+[dependencies]
+tendermint = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "fix-val-set-parsing" }
+tendermint-proto = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "fix-val-set-parsing" }
+
+prost = { version = "0.11", default-features = false }
+prost-types = { version = "0.11", default-features = false }
+bytes = { version = "1.0", default-features = false, features = ["serde"]}
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+serde_bytes = { version = "0.11", default-features = false, features = ["alloc"] }
+subtle-encoding = { version = "0.5", default-features = false, features = ["hex", "base64", "alloc"] }
+num-traits = { version = "0.2", default-features = false }
+num-derive = { version = "0.3", default-features = false }
+time = { version = "0.3", default-features = false, features = ["macros", "parsing"] }
+flex-error = { version = "0.4.4", default-features = false }
+
+[dev-dependencies]
+serde_json = { version = "1.0", default-features = false, features = ["alloc"] }

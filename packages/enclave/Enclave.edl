@@ -20,6 +20,16 @@ enclave {
             uint32_t val_set_len
         );
 
+        public sgx_status_t ecall_submit_block_header(
+            [in, count=block_header_len] const uint8_t* block_header,
+            uint32_t block_header_len
+        );
+
+        public sgx_status_t ecall_validate_encrypted_random(
+            [in, count=encrypted_random_len] const uint8_t* encrypted_random,
+            uint32_t encrypted_random_len
+        );
+
     };
 
     untrusted {

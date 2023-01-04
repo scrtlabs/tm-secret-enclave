@@ -3,6 +3,43 @@
 version = 3
 
 [[package]]
+name = "aead"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0b613b8e1e3cf911a086f53f03bf286f52fd7a7258e4fa606f0ef220d39d8877"
+dependencies = [
+ "generic-array 0.14.6",
+]
+
+[[package]]
+name = "aes"
+version = "0.7.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9e8b47f52ea9bae42228d07ec09eb676433d7c4ed1ebdf0f1d1c29ed446f1ab8"
+dependencies = [
+ "cfg-if",
+ "cipher",
+ "cpufeatures",
+ "opaque-debug 0.3.0",
+]
+
+[[package]]
+name = "aes-siv"
+version = "0.6.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5daaf431d0ff4b0a7b53e995b2d9c0762d9dc0b9f063b4cd65493f2263e096af"
+dependencies = [
+ "aead",
+ "aes",
+ "cipher",
+ "cmac",
+ "crypto-mac",
+ "ctr",
+ "dbl",
+ "zeroize",
+]
+
+[[package]]
 name = "anyhow"
 version = "1.0.68"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -42,12 +79,39 @@ checksum = "349f9b6a179ed607305526ca489b34ad0a41aed5f7980fa90eb03160b69598fb"
 
 [[package]]
 name = "block-buffer"
+version = "0.7.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c0940dc441f31689269e10ac70eb1002a3a1d3ad1390e030043662eb7fe4688b"
+dependencies = [
+ "block-padding",
+ "byte-tools",
+ "byteorder",
+ "generic-array 0.12.4",
+]
+
+[[package]]
+name = "block-buffer"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4152116fd6e9dadb291ae18fc1ec3575ed6d84c29642d97890f4b4a3417297e4"
 dependencies = [
- "generic-array",
+ "generic-array 0.14.6",
 ]
+
+[[package]]
+name = "block-padding"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fa79dedbb091f449f1f39e53edf88d5dbe95f895dae6135a8d7b881fb5af73f5"
+dependencies = [
+ "byte-tools",
+]
+
+[[package]]
+name = "byte-tools"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e3b5ca7a04898ad4bcd41c90c5285445ff5b791899bb1b0abdd2a2aa791211d7"
 
 [[package]]
 name = "byteorder"
@@ -83,7 +147,26 @@ source = "git+https://github.com/mesalock-linux/chrono-sgx#f964ae7f5f65bd2c9cd6f
 dependencies = [
  "num-integer",
  "num-traits 0.2.10",
- "sgx_tstd",
+ "sgx_tstd 1.1.5",
+]
+
+[[package]]
+name = "cipher"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7ee52072ec15386f770805afd189a01c8841be8696bed250fa2f13c4c0d6dfb7"
+dependencies = [
+ "generic-array 0.14.6",
+]
+
+[[package]]
+name = "cmac"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b70e37282d9624283878ffda1d1e53883bcf868cf441bddda44127620b39572d"
+dependencies = [
+ "crypto-mac",
+ "dbl",
 ]
 
 [[package]]
@@ -93,12 +176,31 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6245d59a3e82a7fc217c5828a6692dbc6dfb63a0c8c90495621f7b9d79704a0e"
 
 [[package]]
+name = "cosmos_proto"
+version = "1.6.0"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+dependencies = [
+ "protobuf",
+]
+
+[[package]]
 name = "cpufeatures"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28d997bd5e24a5928dd43e46dc529867e207907fe0b239c3477d924f7f2ca320"
 dependencies = [
  "libc",
+]
+
+[[package]]
+name = "crypto-mac"
+version = "0.11.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b1d1a86f49236c215f271d40892d5fc950490551400b02ef360692c29815c714"
+dependencies = [
+ "cipher",
+ "generic-array 0.14.6",
+ "subtle",
 ]
 
 [[package]]
@@ -112,16 +214,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "ctr"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "049bb91fb4aaf0e3c7efa6cd5ef877dbbbd15b39dad06d9948de4ec8a75761ea"
+dependencies = [
+ "cipher",
+]
+
+[[package]]
 name = "curve25519-dalek"
 version = "3.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "90f9d052967f590a76e62eb387bd0bbb1b000182c3cefe5364db6b7211651bc0"
 dependencies = [
  "byteorder",
- "digest",
+ "digest 0.9.0",
  "rand_core",
  "subtle",
  "zeroize",
+]
+
+[[package]]
+name = "dbl"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bd2735a791158376708f9347fe8faba9667589d82427ef3aed6794a8981de3d9"
+dependencies = [
+ "generic-array 0.14.6",
 ]
 
 [[package]]
@@ -139,11 +259,20 @@ dependencies = [
 
 [[package]]
 name = "digest"
+version = "0.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f3d0c8c8752312f9713efd397ff63acb9f85585afbf179282e720e7704954dd5"
+dependencies = [
+ "generic-array 0.12.4",
+]
+
+[[package]]
+name = "digest"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d3dd60d1080a57a05ab032377049e0591415d2b31afd7028356dbf3cc6dcb066"
 dependencies = [
- "generic-array",
+ "generic-array 0.14.6",
 ]
 
 [[package]]
@@ -163,7 +292,7 @@ checksum = "c762bae6dcaf24c4c84667b8579785430908723d5c889f469d76a41d59cc7a9d"
 dependencies = [
  "curve25519-dalek",
  "ed25519",
- "sha2",
+ "sha2 0.9.9",
  "zeroize",
 ]
 
@@ -174,11 +303,59 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "90e5c1c8368803113bf0c9584fc495a58b86dc8a29edbf8fe877d21d9507e797"
 
 [[package]]
+name = "enclave-ffi-types"
+version = "0.1.0"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+dependencies = [
+ "derive_more",
+]
+
+[[package]]
+name = "enclave_crypto"
+version = "1.6.0"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+dependencies = [
+ "aes-siv",
+ "cosmos_proto",
+ "derive_more",
+ "enclave-ffi-types",
+ "hex",
+ "lazy_static",
+ "log",
+ "ring",
+ "ripemd160",
+ "secp256k1",
+ "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_tstd 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sha2 0.8.2",
+ "sha3",
+ "x25519-dalek",
+]
+
+[[package]]
+name = "eyre"
+version = "0.6.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4c2b6b5a29c02cdc822728b7d7b8ae1bab3e3b05d44522770ddd49722eeac7eb"
+dependencies = [
+ "indenter",
+ "once_cell",
+]
+
+[[package]]
+name = "fake-simd"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e88a8acf291dafb59c2d96e8f59828f3838bb1a70398823ade51a84de6a6deed"
+
+[[package]]
 name = "flex-error"
 version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c606d892c9de11507fa0dcffc116434f94e105d0bbdc4e405b61519464c49d7b"
 dependencies = [
+ "eyre",
  "paste",
 ]
 
@@ -245,6 +422,15 @@ dependencies = [
 
 [[package]]
 name = "generic-array"
+version = "0.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ffdf9f34f1447443d37393cc6c2b8313aebddcd96906caf34e54c68d8e57d7bd"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "generic-array"
 version = "0.14.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bff49e947297f3312447abdca79f45f4738097cc82b06e72054d2223f601f1b9"
@@ -256,6 +442,11 @@ dependencies = [
 [[package]]
 name = "hashbrown_tstd"
 version = "0.12.0"
+
+[[package]]
+name = "hashbrown_tstd"
+version = "0.12.0"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
 
 [[package]]
 name = "hermit-abi"
@@ -277,6 +468,12 @@ name = "httparse"
 version = "1.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d897f394bad6a705d5f4104762e116a75639e470d80901eed05a860a95cb1904"
+
+[[package]]
+name = "indenter"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ce23b50ad8242c51a442f3ff322d56b02f08852c77e4c0b4d3fd684abc89c683"
 
 [[package]]
 name = "itertools"
@@ -301,7 +498,7 @@ name = "itoa"
 version = "0.4.5"
 source = "git+https://github.com/mesalock-linux/itoa-sgx#295ee451f5ec74f25c299552b481beb445ea3eb7"
 dependencies = [
- "sgx_tstd",
+ "sgx_tstd 1.1.5",
 ]
 
 [[package]]
@@ -309,6 +506,15 @@ name = "itoa"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fad582f4b9e86b6caa621cabeb0963332d92eea04729ab12892c2533951e6440"
+
+[[package]]
+name = "keccak"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3afef3b6eff9ce9d8ff9b3601125eec7f0c8cbac7abd14f355d053fa56c98768"
+dependencies = [
+ "cpufeatures",
+]
 
 [[package]]
 name = "lazy_static"
@@ -339,7 +545,7 @@ dependencies = [
  "autocfg 1.1.0",
  "num-integer",
  "num-traits 0.2.10",
- "sgx_tstd",
+ "sgx_tstd 1.1.5",
 ]
 
 [[package]]
@@ -360,7 +566,7 @@ source = "git+https://github.com/mesalock-linux/num-integer-sgx#404c50e5378ca635
 dependencies = [
  "autocfg 0.1.8",
  "num-traits 0.2.10",
- "sgx_tstd",
+ "sgx_tstd 1.1.5",
 ]
 
 [[package]]
@@ -369,7 +575,7 @@ version = "0.2.10"
 source = "git+https://github.com/mesalock-linux/num-traits-sgx#af046e0b15c594c960007418097dd4ff37ec3f7a"
 dependencies = [
  "autocfg 0.1.8",
- "sgx_tstd",
+ "sgx_tstd 1.1.5",
 ]
 
 [[package]]
@@ -386,6 +592,12 @@ name = "once_cell"
 version = "1.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6f61fba1741ea2b3d6a1e3178721804bb716a68a6aeba1149b5d52e3d464ea66"
+
+[[package]]
+name = "opaque-debug"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2839e79665f131bdb5782e51f2c6c9599c133c6098982a54c794358bf432529c"
 
 [[package]]
 name = "opaque-debug"
@@ -454,6 +666,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "protobuf"
+version = "2.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "106dd99e98437432fed6519dedecfade6a06a73bb7b2a1e019fdd2bee5778d94"
+
+[[package]]
 name = "quote"
 version = "1.0.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -476,6 +694,7 @@ dependencies = [
  "chrono",
  "ctor",
  "derive_more",
+ "enclave_crypto",
  "hex",
  "httparse",
  "itertools 0.8.2",
@@ -484,12 +703,35 @@ dependencies = [
  "num-bigint",
  "serde 1.0.118",
  "serde_json 1.0.60",
- "sgx_trts",
- "sgx_tstd",
- "sgx_types",
+ "sgx_trts 1.1.5",
+ "sgx_tstd 1.1.5",
+ "sgx_types 1.1.5",
  "simple_logger",
  "tendermint",
  "tendermint-proto",
+ "tm-enclave-proto",
+]
+
+[[package]]
+name = "ring"
+version = "0.16.19"
+source = "git+https://github.com/mesalock-linux/ring-sgx?tag=v0.16.5#844efe271ed78a399d803b2579f5f2424d543c9f"
+dependencies = [
+ "cc",
+ "sgx_tstd 1.1.5",
+ "spin",
+ "untrusted",
+]
+
+[[package]]
+name = "ripemd160"
+version = "0.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2eca4ecc81b7f313189bf73ce724400a07da2a6dac19588b03c8bd76a2dcc251"
+dependencies = [
+ "block-buffer 0.9.0",
+ "digest 0.9.0",
+ "opaque-debug 0.3.0",
 ]
 
 [[package]]
@@ -508,6 +750,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7b4b9743ed687d4b4bcedf9ff5eaa7398495ae14e61cba0a295704edbc7decde"
 
 [[package]]
+name = "secp256k1"
+version = "0.24.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d9512ffd81e3a3503ed401f79c33168b9148c75038956039166cd750eaa037c3"
+dependencies = [
+ "secp256k1-sys",
+]
+
+[[package]]
+name = "secp256k1-sys"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "83080e2c2fc1006e625be82e5d1eb6a43b7fd9578b617fcc55814daf286bba4b"
+dependencies = [
+ "cc",
+]
+
+[[package]]
 name = "semver"
 version = "1.0.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -519,7 +779,7 @@ version = "1.0.118"
 source = "git+https://github.com/mesalock-linux/serde-sgx#db0226f1d5d70fca6b96af2c285851502204e21c"
 dependencies = [
  "serde_derive 1.0.118",
- "sgx_tstd",
+ "sgx_tstd 1.1.5",
 ]
 
 [[package]]
@@ -569,7 +829,7 @@ dependencies = [
  "itoa 0.4.5",
  "ryu",
  "serde 1.0.118",
- "sgx_tstd",
+ "sgx_tstd 1.1.5",
 ]
 
 [[package]]
@@ -599,12 +859,27 @@ name = "sgx_alloc"
 version = "1.1.5"
 
 [[package]]
+name = "sgx_alloc"
+version = "1.1.5"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+
+[[package]]
 name = "sgx_backtrace_sys"
 version = "1.1.5"
 dependencies = [
  "cc",
- "sgx_build_helper",
- "sgx_libc",
+ "sgx_build_helper 1.1.5",
+ "sgx_libc 1.1.5",
+]
+
+[[package]]
+name = "sgx_backtrace_sys"
+version = "1.1.5"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+dependencies = [
+ "cc",
+ "sgx_build_helper 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
 ]
 
 [[package]]
@@ -612,45 +887,97 @@ name = "sgx_build_helper"
 version = "1.1.5"
 
 [[package]]
+name = "sgx_build_helper"
+version = "1.1.5"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+
+[[package]]
 name = "sgx_demangle"
 version = "1.1.5"
+
+[[package]]
+name = "sgx_demangle"
+version = "1.1.5"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
 
 [[package]]
 name = "sgx_libc"
 version = "1.1.5"
 dependencies = [
- "sgx_types",
+ "sgx_types 1.1.5",
+]
+
+[[package]]
+name = "sgx_libc"
+version = "1.1.5"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+dependencies = [
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
 ]
 
 [[package]]
 name = "sgx_tprotected_fs"
 version = "1.1.5"
 dependencies = [
- "sgx_trts",
- "sgx_types",
+ "sgx_trts 1.1.5",
+ "sgx_types 1.1.5",
+]
+
+[[package]]
+name = "sgx_tprotected_fs"
+version = "1.1.5"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+dependencies = [
+ "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
 ]
 
 [[package]]
 name = "sgx_trts"
 version = "1.1.5"
 dependencies = [
- "sgx_libc",
- "sgx_types",
+ "sgx_libc 1.1.5",
+ "sgx_types 1.1.5",
+]
+
+[[package]]
+name = "sgx_trts"
+version = "1.1.5"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+dependencies = [
+ "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
 ]
 
 [[package]]
 name = "sgx_tstd"
 version = "1.1.5"
 dependencies = [
- "hashbrown_tstd",
- "sgx_alloc",
- "sgx_backtrace_sys",
- "sgx_demangle",
- "sgx_libc",
- "sgx_tprotected_fs",
- "sgx_trts",
- "sgx_types",
- "sgx_unwind",
+ "hashbrown_tstd 0.12.0",
+ "sgx_alloc 1.1.5",
+ "sgx_backtrace_sys 1.1.5",
+ "sgx_demangle 1.1.5",
+ "sgx_libc 1.1.5",
+ "sgx_tprotected_fs 1.1.5",
+ "sgx_trts 1.1.5",
+ "sgx_types 1.1.5",
+ "sgx_unwind 1.1.5",
+]
+
+[[package]]
+name = "sgx_tstd"
+version = "1.1.5"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+dependencies = [
+ "hashbrown_tstd 0.12.0 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_alloc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_backtrace_sys 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_demangle 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_tprotected_fs 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+ "sgx_unwind 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
 ]
 
 [[package]]
@@ -658,10 +985,35 @@ name = "sgx_types"
 version = "1.1.5"
 
 [[package]]
+name = "sgx_types"
+version = "1.1.5"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+
+[[package]]
 name = "sgx_unwind"
 version = "1.1.5"
 dependencies = [
- "sgx_build_helper",
+ "sgx_build_helper 1.1.5",
+]
+
+[[package]]
+name = "sgx_unwind"
+version = "1.1.5"
+source = "git+https://github.com/scrtlabs/SecretNetwork#ea3acce73a9fac02ed530218d3bd864f054ca053"
+dependencies = [
+ "sgx_build_helper 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork)",
+]
+
+[[package]]
+name = "sha2"
+version = "0.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a256f46ea78a0c0d9ff00077504903ac881a1dafdc20da66545699e7776b3e69"
+dependencies = [
+ "block-buffer 0.7.3",
+ "digest 0.8.1",
+ "fake-simd",
+ "opaque-debug 0.2.3",
 ]
 
 [[package]]
@@ -670,11 +1022,24 @@ version = "0.9.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4d58a1e1bf39749807d89cf2d98ac2dfa0ff1cb3faa38fbb64dd88ac8013d800"
 dependencies = [
- "block-buffer",
+ "block-buffer 0.9.0",
  "cfg-if",
  "cpufeatures",
- "digest",
- "opaque-debug",
+ "digest 0.9.0",
+ "opaque-debug 0.3.0",
+]
+
+[[package]]
+name = "sha3"
+version = "0.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dd26bc0e7a2e3a7c959bc494caf58b72ee0c71d67704e9520f736ca7e4853ecf"
+dependencies = [
+ "block-buffer 0.7.3",
+ "byte-tools",
+ "digest 0.8.1",
+ "keccak",
+ "opaque-debug 0.2.3",
 ]
 
 [[package]]
@@ -693,6 +1058,12 @@ dependencies = [
  "log",
  "winapi",
 ]
+
+[[package]]
+name = "spin"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6e63cff320ae2c57904679ba7cb63280a3dc4613885beafb148ee7bf9aa9042d"
 
 [[package]]
 name = "subtle"
@@ -750,7 +1121,7 @@ dependencies = [
  "serde_bytes",
  "serde_json 1.0.91",
  "serde_repr",
- "sha2",
+ "sha2 0.9.9",
  "signature",
  "subtle",
  "subtle-encoding",
@@ -782,6 +1153,7 @@ version = "0.3.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a561bf4617eebd33bca6434b988f39ed798e527f51a1e797d0ee4f61c0a38376"
 dependencies = [
+ "serde 1.0.152",
  "time-core",
  "time-macros",
 ]
@@ -802,6 +1174,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "tm-enclave-proto"
+version = "0.0.1"
+dependencies = [
+ "bytes",
+ "flex-error",
+ "num-derive",
+ "num-traits 0.2.15",
+ "prost",
+ "prost-types",
+ "serde 1.0.152",
+ "serde_bytes",
+ "subtle-encoding",
+ "tendermint",
+ "tendermint-proto",
+ "time",
+]
+
+[[package]]
 name = "typenum"
 version = "1.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -818,6 +1208,12 @@ name = "unicode-xid"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f962df74c8c05a667b5ee8bcf162993134c104e96440b663c8daa176dc772d8c"
+
+[[package]]
+name = "untrusted"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a156c684c91ea7d62626509bce3cb4e1d9ed5c4d978f7b4352658f96a4c26b4a"
 
 [[package]]
 name = "version_check"
@@ -846,6 +1242,17 @@ name = "winapi-x86_64-pc-windows-gnu"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
+
+[[package]]
+name = "x25519-dalek"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2392b6b94a576b4e2bf3c5b2757d63f10ada8020a2e4d08ac849ebcf6ea8e077"
+dependencies = [
+ "curve25519-dalek",
+ "rand_core",
+ "zeroize",
+]
 
 [[package]]
 name = "zeroize"
