@@ -47,6 +47,12 @@ pub enum Error {
         #[cfg(feature = "backtraces")]
         backtrace: snafu::Backtrace,
     },
+    #[snafu(display("{}", msg))]
+    RandomGeneration {
+        msg: String,
+        #[cfg(feature = "backtraces")]
+        backtrace: snafu::Backtrace,
+    },
 }
 
 impl Error {
