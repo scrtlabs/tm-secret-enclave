@@ -19,7 +19,7 @@ pub fn init_enclave(enclave_file: &str) -> SgxResult<SgxEnclave> {
     };
 
     // Search only in the current directory
-    let enclave_file_path = Path::new(".").join(enclave_file);
+    let enclave_file_path = Path::new("/usr/lib/").join(enclave_file);
     if !enclave_file_path.exists() {
         println!(
             "Cannot find the enclave file {:?}",
