@@ -7,14 +7,14 @@ type EnclaveRandom struct {
 	Proof  []byte `json:"proof"`
 }
 
-func GetRandom(blockHash []byte, height uint64) (*EnclaveRandom, error) {
-	return nil, nil
+func GetRandom(blockHash []byte, height uint64) ([]byte, []byte, error) {
+	return nil, nil, nil
 }
 
-func SubmitNextValidatorSet(valSet []byte) error {
+func SubmitValidatorSet(valSet []byte) error {
 	return nil
 }
 
-func ValidateRandom(encryptedRandom EnclaveRandom, blockHash []byte, height uint64) bool {
+func ValidateRandom(random []byte, proof []byte, blockHash []byte, height uint64) bool {
 	return true
 }
