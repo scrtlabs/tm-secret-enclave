@@ -1,0 +1,28 @@
+[workspace]
+members = ["enclave"]
+
+[patch.'https://github.com/apache/teaclave-sgx-sdk.git']
+sgx_alloc = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
+sgx_backtrace_sys = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
+sgx_build_helper = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
+sgx_demangle = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
+sgx_libc = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
+sgx_tprotected_fs = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
+sgx_trts = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
+sgx_tstd = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
+sgx_types = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
+sgx_unwind = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
+#sgx_alloc = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_alloc" }
+#sgx_backtrace_sys = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_backtrace_sys" }
+#sgx_build_helper = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_build_helper" }
+#sgx_demangle = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_demangle" }
+#sgx_libc = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_libc" }
+#sgx_tprotected_fs = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_tprotected_fs" }
+#sgx_trts = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_trts" }
+#sgx_tstd = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_tstd" }
+#sgx_types = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_types" }
+#sgx_unwind = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_unwind" }
+
+[patch.crates-io]
+tendermint = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "fix-val-set-parsing" }
+tendermint-proto = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "fix-val-set-parsing" }
