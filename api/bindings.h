@@ -64,16 +64,6 @@ struct Buffer get_random_number(struct Buffer block_hash, uint64_t height, struc
 
 void submit_next_validator_set(struct Buffer val_set, uint64_t height, struct Buffer *err);
 
-extern sgx_status_t ecall_validate_random(sgx_enclave_id_t eid,
-                                          sgx_status_t *retval,
-                                          const uint8_t *random,
-                                          uint32_t random_len,
-                                          const uint8_t *proof,
-                                          uint32_t proof_len,
-                                          const uint8_t *block_hash,
-                                          uint32_t block_hash_len,
-                                          uint64_t height);
-
 struct Buffer allocate_rust(const uint8_t *ptr, uintptr_t length);
 
 void free_rust(struct Buffer buf);
