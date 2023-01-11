@@ -153,7 +153,7 @@ checksum = "6245d59a3e82a7fc217c5828a6692dbc6dfb63a0c8c90495621f7b9d79704a0e"
 [[package]]
 name = "cosmos_proto"
 version = "1.6.0"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 dependencies = [
  "protobuf",
 ]
@@ -280,7 +280,7 @@ checksum = "90e5c1c8368803113bf0c9584fc495a58b86dc8a29edbf8fe877d21d9507e797"
 [[package]]
 name = "enclave-ffi-types"
 version = "0.1.0"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 dependencies = [
  "derive_more",
 ]
@@ -288,7 +288,7 @@ dependencies = [
 [[package]]
 name = "enclave_crypto"
 version = "1.6.0"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 dependencies = [
  "aes-siv",
  "cosmos_proto",
@@ -300,9 +300,9 @@ dependencies = [
  "ring",
  "ripemd160",
  "secp256k1",
- "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_tstd 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
+ "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_tstd 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
  "sha2 0.8.2",
  "sha3",
  "x25519-dalek",
@@ -311,14 +311,16 @@ dependencies = [
 [[package]]
 name = "enclave_utils"
 version = "1.6.0"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 dependencies = [
  "enclave-ffi-types",
  "lazy_static",
  "log",
- "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_tstd 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
+ "serde 1.0.118",
+ "serde_json 1.0.60",
+ "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_tstd 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
 ]
 
 [[package]]
@@ -419,7 +421,7 @@ dependencies = [
 [[package]]
 name = "hashbrown_tstd"
 version = "0.12.0"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 
 [[package]]
 name = "hashbrown_tstd"
@@ -778,7 +780,7 @@ dependencies = [
 [[package]]
 name = "sgx_alloc"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 
 [[package]]
 name = "sgx_alloc"
@@ -788,11 +790,11 @@ source = "git+https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git?rev=5bf
 [[package]]
 name = "sgx_backtrace_sys"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 dependencies = [
  "cc",
- "sgx_build_helper 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
+ "sgx_build_helper 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
 ]
 
 [[package]]
@@ -808,7 +810,7 @@ dependencies = [
 [[package]]
 name = "sgx_build_helper"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 
 [[package]]
 name = "sgx_build_helper"
@@ -818,7 +820,7 @@ source = "git+https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git?rev=5bf
 [[package]]
 name = "sgx_demangle"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 
 [[package]]
 name = "sgx_demangle"
@@ -828,9 +830,9 @@ source = "git+https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git?rev=5bf
 [[package]]
 name = "sgx_libc"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 dependencies = [
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
 ]
 
 [[package]]
@@ -844,10 +846,10 @@ dependencies = [
 [[package]]
 name = "sgx_tprotected_fs"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 dependencies = [
- "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
+ "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
 ]
 
 [[package]]
@@ -862,10 +864,10 @@ dependencies = [
 [[package]]
 name = "sgx_trts"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 dependencies = [
- "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
+ "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
 ]
 
 [[package]]
@@ -880,17 +882,17 @@ dependencies = [
 [[package]]
 name = "sgx_tstd"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 dependencies = [
- "hashbrown_tstd 0.12.0 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_alloc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_backtrace_sys 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_demangle 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_tprotected_fs 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
- "sgx_unwind 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
+ "hashbrown_tstd 0.12.0 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_alloc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_backtrace_sys 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_demangle 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_tprotected_fs 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
+ "sgx_unwind 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
 ]
 
 [[package]]
@@ -912,7 +914,7 @@ dependencies = [
 [[package]]
 name = "sgx_types"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 
 [[package]]
 name = "sgx_types"
@@ -922,9 +924,9 @@ source = "git+https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git?rev=5bf
 [[package]]
 name = "sgx_unwind"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?branch=random#197056b5584380d50fe138bc91d58caaae693c28"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722#2396770b8a4ca3159424f741d590bff56a3e3722"
 dependencies = [
- "sgx_build_helper 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?branch=random)",
+ "sgx_build_helper 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=2396770b8a4ca3159424f741d590bff56a3e3722)",
 ]
 
 [[package]]
