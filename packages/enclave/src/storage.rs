@@ -1,6 +1,5 @@
 use log::error;
-use sgx_types::SgxResult;
-use std::io::{Read, Write};
+use std::io::Write;
 use std::sgxfs::SgxFile;
 use crate::error::Error;
 

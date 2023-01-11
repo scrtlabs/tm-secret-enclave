@@ -1,19 +1,17 @@
 use sgx_types::{sgx_status_t, SgxResult};
-use crate::keys::VALIDATOR_SET_SEALING_PATH;
 
-use enclave_utils::storage::unseal;
+use enclave_utils::validator_set::ValidatorSetForHeight;
+
 use log::{debug, error};
 use tendermint::Hash;
 use tendermint_proto::Protobuf;
 
 pub fn get_validator_set_hash() -> SgxResult<Hash> {
-    let res = unseal(&VALIDATOR_SET_SEALING_PATH)?;
+    let res = ValidatorSetForHeight::unseal()?; //unseal(&VALIDATOR_SET_SEALING_PATH)?;
 
-    // // As of now this is not working because of a difference in behavior between tendermint and tendermint-rs
-    // // Ref: https://github.com/informalsystems/tendermint-rs/issues/1255
-    let hash = match tendermint::validator::Set::decode(&*res) {
+    let hash = match tendermint::validator::Set::decode(&*(res.validator_set)) {
         Ok(vs) => {
-            debug!("the validator set hash: {:?}", vs.hash());
+            debug!("decoded validator set hash: {:?}", vs.hash());
             vs.hash()
         }
         Err(e) => {

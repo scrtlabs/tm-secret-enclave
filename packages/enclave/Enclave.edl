@@ -23,7 +23,8 @@ enclave {
         );
         public sgx_status_t ecall_submit_validator_set(
             [in, count=val_set_len] const uint8_t* val_set,
-            uint32_t val_set_len
+            uint32_t val_set_len,
+            uint64_t height
         );
         public sgx_status_t ecall_validate_random(
             [in, count=random_len] const uint8_t* random,

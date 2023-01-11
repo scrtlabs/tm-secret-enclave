@@ -16,18 +16,26 @@ extern crate core;
 // use enclave_utils::logger::get_log_level;
 
 use enclave_crypto::{SIVEncryptable, sha_256};
-use std::{convert::TryFrom, slice};
+use enclave_utils::logger::get_log_level;
+use std::{slice};
 
 use sgx_trts::trts::rsgx_read_rand;
 use sgx_types::sgx_status_t;
-use tendermint::validator::Set;
-use tendermint_proto::Protobuf;
-use crate::keys::{IRS, REK, VALIDATOR_SET_SEALING_PATH};
-use crate::storage::seal;
+use crate::keys::{IRS, REK};
 
 use log::{error, info};
+use tendermint::Hash;
 use tendermint::Hash::Sha256;
 use crate::validator_set::get_validator_set_hash;
+
+use ctor::ctor;
+use enclave_utils::validator_set::ValidatorSetForHeight;
+
+#[ctor]
+fn init_logger() {
+    let default_log_level = log::Level::Debug;
+    simple_logger::init_with_level(get_log_level(default_log_level)).unwrap();
+}
 
 #[no_mangle]
 pub unsafe extern "C" fn ecall_health_check() -> sgx_status_t {
@@ -52,16 +60,17 @@ pub unsafe extern "C" fn ecall_generate_random(
 
     let mut rand_buf: [u8; 32] = [0; 32];
 
-    if let Err(e) = rsgx_read_rand(&mut rand_buf) {
+    if let Err(_e) = rsgx_read_rand(&mut rand_buf) {
         error!("Error generating random value");
         return sgx_status_t::SGX_ERROR_UNEXPECTED;
     };
 
-    let validator_set_hash = if let Ok(Sha256(res)) = get_validator_set_hash() {
-        res
-    } else {
-        error!("Failed to get validator set or was empty");
-        return sgx_status_t::SGX_ERROR_UNEXPECTED;
+    let validator_set_hash = match get_validator_set_hash().unwrap_or_default() {
+        Sha256(hash) => hash,
+        Hash::None => {
+            error!("Got invalid validator set");
+            return sgx_status_t::SGX_ERROR_UNEXPECTED;
+        }
     };
 
     // todo: add entropy detection
@@ -74,6 +83,9 @@ pub unsafe extern "C" fn ecall_generate_random(
 
     random.copy_from_slice(encrypted.as_slice());
 
+    // proof is an encrypted value that allows enclaves to validate that the encrypted value was created for
+    // this specific height & block. This allows for replay protection.
+    // optional improvement: Add public key signatures to be able to validate this outside the enclave
     let proof_computed = create_proof(height, encrypted.as_slice(), block_hash_slice);
     proof.copy_from_slice(proof_computed.as_slice());
 
@@ -86,11 +98,16 @@ pub unsafe extern "C" fn ecall_generate_random(
 pub unsafe extern "C" fn ecall_submit_validator_set(
     val_set: *const u8,
     val_set_len: u32,
+    height: u64
 ) -> sgx_status_t {
     let val_set_slice = slice::from_raw_parts(val_set, val_set_len as usize);
 
+    let val_set = ValidatorSetForHeight {
+        height,
+        validator_set: val_set_slice.to_vec()
+    };
 
-    let res = seal(val_set_slice, &VALIDATOR_SET_SEALING_PATH);
+    let res = val_set.seal();
     if res.is_err() {
         return sgx_status_t::SGX_ERROR_ENCLAVE_FILE_ACCESS;
     }

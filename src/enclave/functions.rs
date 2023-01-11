@@ -3,7 +3,6 @@ use crate::enclave::enclave_api::{ecall_generate_random, ecall_health_check, eca
 use crate::enclave::init::init_enclave;
 use crate::Error;
 use sgx_types::{sgx_status_t, SgxResult};
-use crate::enclave::types::EnclaveRandom;
 
 pub fn health_check() -> Result<Vec<u8>, Error> {
     let enclave = init_enclave(ENCLAVE_FILE_NAME).unwrap();
@@ -37,7 +36,6 @@ pub fn random_number(block_hash: &[u8], height: u64) -> Result<Vec<u8>, crate::E
     let mut random = [0u8; 48];
     let mut proof = [0u8; 32];
 
-    println!("BEFORE");
     let status = unsafe { ecall_generate_random(
         eid,
         &mut retval,
@@ -62,13 +60,13 @@ pub fn random_number(block_hash: &[u8], height: u64) -> Result<Vec<u8>, crate::E
     return Ok(return_val);
 }
 
-pub fn next_validator_set(val_set: &[u8]) -> SgxResult<()> {
+pub fn next_validator_set(val_set: &[u8], height: u64) -> SgxResult<()> {
     let enclave = init_enclave(ENCLAVE_FILE_NAME)?;
 
     let eid = enclave.geteid();
     let mut retval = sgx_status_t::SGX_SUCCESS;
     let status = unsafe {
-        ecall_submit_validator_set(eid, &mut retval, val_set.as_ptr(), val_set.len() as u32)
+        ecall_submit_validator_set(eid, &mut retval, val_set.as_ptr(), val_set.len() as u32, height)
     };
 
     if status != sgx_status_t::SGX_SUCCESS {

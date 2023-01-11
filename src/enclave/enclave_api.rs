@@ -20,6 +20,7 @@ extern "C" {
         retval: *mut sgx_status_t,
         val_set: *const u8,
         val_set_len: u32,
+        height: u64
     ) -> sgx_status_t;
 
     pub fn ecall_validate_random(

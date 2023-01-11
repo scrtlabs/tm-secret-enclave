@@ -9,8 +9,8 @@ func GetRandom(blockHash []byte, height uint64) ([]byte, []byte, error) {
 	return res.Random, res.Proof, err
 }
 
-func SubmitValidatorSet(valSet []byte) error {
-	return api.SubmitNextValidatorSet(valSet)
+func SubmitValidatorSet(valSet []byte, height uint64) error {
+	return api.SubmitValidatorSet(valSet, height)
 }
 
 func ValidateRandom(random []byte, proof []byte, blockHash []byte, height uint64) bool {

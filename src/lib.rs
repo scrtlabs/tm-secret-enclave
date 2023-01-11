@@ -55,7 +55,7 @@ pub extern "C" fn validate_random(random: Buffer, proof: Buffer, block_hash: Buf
     };
 
     match crate::enclave::functions::enclave_validate_random(random_slice, proof_slice, block_hash_slice, height) {
-        Err(e) => {
+        Err(_e) => {
             // set_error(Error::enclave_err(e.to_string()), err);
             false
         }
@@ -86,7 +86,7 @@ pub extern "C" fn get_random_number(block_hash: Buffer, height: u64, err: Option
 }
 
 #[no_mangle]
-pub extern "C" fn submit_next_validator_set(val_set: Buffer, err: Option<&mut Buffer>) {
+pub extern "C" fn submit_next_validator_set(val_set: Buffer, height: u64, err: Option<&mut Buffer>) {
     let val_set_slice = match unsafe { val_set.read() } {
         None => {
             set_error(Error::empty_arg("val_set"), err);
@@ -95,7 +95,7 @@ pub extern "C" fn submit_next_validator_set(val_set: Buffer, err: Option<&mut Bu
         Some(r) => r,
     };
 
-    match next_validator_set(val_set_slice) {
+    match next_validator_set(val_set_slice, height) {
         Err(e) => {
             set_error(Error::enclave_err(e.to_string()), err);
             return;

@@ -89,17 +89,17 @@ func GetRandom(blockHash []byte, height uint64) (*EnclaveRandom, error) {
 	return ret, nil
 }
 
-func SubmitNextValidatorSet(valSet []byte) error {
+func SubmitValidatorSet(valSet []byte, height uint64) error {
 	errmsg := C.Buffer{}
 	valSetSlice := sendSlice(valSet)
 	defer freeAfterSend(valSetSlice)
 
-	C.submit_next_validator_set(valSetSlice, &errmsg)
+	C.submit_next_validator_set(valSetSlice, u64(height), &errmsg)
 	if errmsg.len != 0 {
 		return fmt.Errorf("error")
 	}
 
-	fmt.Println("Called enclave, no errors")
+	// fmt.Println("Called enclave, no errors")
 
 	return nil
 }
