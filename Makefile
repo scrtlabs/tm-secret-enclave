@@ -94,11 +94,11 @@ endif
 
 .PHONY: build-go
 build-go:
-	go build -tags 'sgx' -o main ./cmd
+	go build -tags 'sgx' -ldflags '-r $(SGX_SDK)/lib64/' -o main ./cmd
 
 .PHONY: cmd
 cmd:
-	RUST_BACKTRACE=1 go build -o main ./cmd
+	RUST_BACKTRACE=1 go build -tags 'sgx' -ldflags '-r $(SGX_SDK)/lib64/' -o main ./cmd
 
 .PHONY: docker-image-alpine
 docker-image-alpine:
@@ -122,4 +122,3 @@ clean:
 .PHONY: clean-all
 clean-all: clean
 	$(MAKE) -C $(Enclave_Path) clean
-	$(MAKE) -C $(Query_Enclave_Path) clean

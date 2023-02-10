@@ -2,6 +2,7 @@
 
 package api
 
+import "C"
 import (
 	"fmt"
 	"math/rand"
@@ -10,6 +11,10 @@ import (
 type EnclaveRandom struct {
 	Random []byte `json:"random"`
 	Proof  []byte `json:"proof"`
+}
+
+func GetHealthCheck() (int64, error) {
+	return 0, nil
 }
 
 func GetRandom(blockHash []byte, height uint64) (*EnclaveRandom, error) {

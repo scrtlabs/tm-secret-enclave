@@ -4,10 +4,14 @@ use sgx_types::{
 use sgx_urts::SgxEnclave;
 use std::path::Path;
 
+use std::env;
+use log::{trace, warn};
+
 // todo: feature = production
 const ENCLAVE_DEBUG: i32 = 1;
 
 pub fn init_enclave(enclave_file: &str) -> SgxResult<SgxEnclave> {
+
     let mut launch_token: sgx_launch_token_t = [0; 1024];
     let mut launch_token_updated: i32 = 0;
     // call sgx_create_enclave to initialize an enclave instance
@@ -18,15 +22,31 @@ pub fn init_enclave(enclave_file: &str) -> SgxResult<SgxEnclave> {
         misc_select: 0,
     };
 
-    // Search only in the current directory
-    let enclave_file_path = Path::new("/usr/lib/").join(enclave_file);
-    if !enclave_file_path.exists() {
-        println!(
-            "Cannot find the enclave file {:?}",
-            enclave_file_path.to_str()
-        );
-        return Err(sgx_status_t::SGX_ERROR_INVALID_ENCLAVE);
+    let enclave_directory = env::var("SCRT_ENCLAVE_DIR").unwrap_or_else(|_| '.'.to_string());
+
+    let mut enclave_file_path = None;
+    let dirs = [
+        enclave_directory.as_str(),
+        "/lib",
+        "/usr/lib",
+        "/usr/local/lib",
+    ];
+    for dir in dirs.iter() {
+        let candidate = Path::new(dir).join(enclave_file);
+        trace!("Looking for the enclave file in {:?}", candidate.to_str());
+        if candidate.exists() {
+            enclave_file_path = Some(candidate);
+            break;
+        }
     }
+
+    let enclave_file_path = enclave_file_path.ok_or_else(|| {
+        warn!(
+            "Cannot find the enclave file. Try pointing the SCRT_ENCLAVE_DIR environment variable to the directory that has {:?}",
+            enclave_file
+        );
+        sgx_status_t::SGX_ERROR_INVALID_ENCLAVE
+    })?;
 
     SgxEnclave::create(
         enclave_file_path,

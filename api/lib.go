@@ -29,20 +29,16 @@ type EnclaveRandom struct {
 	Proof  []byte `json:"proof"`
 }
 
-//func GetHealthCheck() (int64, error) {
-//	errmsg := C.Buffer{}
-//
-//	res, err := C.get_health_check(&errmsg)
-//	if err != nil {
-//		return 0, errorWithMessage(err, errmsg)
-//	}
-//
-//	vec := receiveVector(res)
-//	data := binary.BigEndian.Uint64(vec)
-//	fmt.Println(data)
-//
-//	return int64(data), nil
-//}
+func GetHealthCheck() (int64, error) {
+	errmsg := C.Buffer{}
+
+	_, err := C.get_health_check(&errmsg)
+	if err != nil {
+		return 0, err
+	}
+
+	return 0, nil
+}
 
 func ValidateRandom(encryptedRandom EnclaveRandom, blockHash []byte, height uint64) bool {
 	// errmsg := C.Buffer{}

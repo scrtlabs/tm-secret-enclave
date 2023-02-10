@@ -1,3 +1,4 @@
 [submodule "deps/incubator-teaclave-sgx-sdk"]
 	path = deps/incubator-teaclave-sgx-sdk
 	url = https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git
+  branch = secret-new-1.1.5

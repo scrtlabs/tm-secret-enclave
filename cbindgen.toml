@@ -49,6 +49,7 @@ exclude = [
     "ecall_health_check",
     "ecall_generate_random",
     "ecall_submit_validator_set",
+    "ecall_validate_random",
 ]
 # prefix = "CAPI_"
 item_types = []
