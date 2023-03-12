@@ -8,6 +8,7 @@ import "C"
 
 import (
 	"fmt"
+	"time"
 )
 
 // nice aliases to the rust names
@@ -23,6 +24,9 @@ type (
 	cint   = C.int
 	cbool  = C.bool
 )
+
+const RETRIES = 5
+const SLEEP_MS = 200
 
 type EnclaveRandom struct {
 	Random []byte `json:"random"`
@@ -90,12 +94,17 @@ func SubmitValidatorSet(valSet []byte, height uint64) error {
 	valSetSlice := sendSlice(valSet)
 	defer freeAfterSend(valSetSlice)
 
-	C.submit_next_validator_set(valSetSlice, u64(height), &errmsg)
-	if errmsg.len != 0 {
-		return fmt.Errorf("error")
+	for i := 0; i <= RETRIES; i++ {
+		C.submit_next_validator_set(valSetSlice, u64(height), &errmsg)
+		if errmsg.len == 0 {
+			// No error occurred, return nil
+			return nil
+		}
+
+		time.Sleep(SLEEP_MS * time.Millisecond)
+		// Error occurred, retry in the next iteration
 	}
 
-	// fmt.Println("Called enclave, no errors")
-
-	return nil
+	// If we reach here, all retries have failed, return error
+	return fmt.Errorf("failed submitting validator set to enclave after %d retries", retries)
 }
