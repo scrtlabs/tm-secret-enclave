@@ -12,6 +12,8 @@ exclude = [".gitignore"]
 [lib]
 crate-type = ["cdylib", "lib"]
 
+[features]
+production = []
 ## the example is to allow us to compile a muslc static lib with the same codebase as we compile the
 ## normal dynamic libs (best workaround I could find to override crate-type on the command line)
 #[[example]]

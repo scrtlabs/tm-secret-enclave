@@ -4,14 +4,15 @@ use sgx_types::{
 use sgx_urts::SgxEnclave;
 use std::path::Path;
 
-use std::env;
 use log::{trace, warn};
+use std::env;
 
-// todo: feature = production
+#[cfg(feature = "production")]
+const ENCLAVE_DEBUG: i32 = 0;
+#[cfg(not(feature = "production"))]
 const ENCLAVE_DEBUG: i32 = 1;
 
 pub fn init_enclave(enclave_file: &str) -> SgxResult<SgxEnclave> {
-
     let mut launch_token: sgx_launch_token_t = [0; 1024];
     let mut launch_token_updated: i32 = 0;
     // call sgx_create_enclave to initialize an enclave instance
@@ -55,5 +56,4 @@ pub fn init_enclave(enclave_file: &str) -> SgxResult<SgxEnclave> {
         &mut launch_token_updated,
         &mut misc_attr,
     )
-
 }

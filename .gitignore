@@ -1,5 +1,6 @@
 /target
 packages/enclave/target
+packages/target
 
 **/*.rs.bk
 *.iml
