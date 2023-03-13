@@ -53,15 +53,18 @@ func ValidateRandom(encryptedRandom EnclaveRandom, blockHash []byte, height uint
 	blockHashSlice := sendSlice(blockHash)
 	defer freeAfterSend(blockHashSlice)
 
-	// need to wrap with C.uint64_t otherwise compiler mixes up mapping of types between languages
-	res := C.validate_random(randomSlice, proofSlice, blockHashSlice, u64(height))
-	return bool(res)
-	//if err != nil {
-	//	//todo: log or return error
-	//	return false
-	//}
-	//
-	//return true
+	for i := 0; i <= RETRIES; i++ {
+
+		// need to wrap with C.uint64_t otherwise compiler mixes up mapping of types between languages
+		res := C.validate_random(randomSlice, proofSlice, blockHashSlice, u64(height))
+		if res {
+			return true
+		}
+
+		time.Sleep(SLEEP_MS * time.Millisecond)
+	}
+
+	return false
 }
 
 func GetRandom(blockHash []byte, height uint64) (*EnclaveRandom, error) {
@@ -69,24 +72,30 @@ func GetRandom(blockHash []byte, height uint64) (*EnclaveRandom, error) {
 	blockHashSlice := sendSlice(blockHash)
 	defer freeAfterSend(blockHashSlice)
 
-	res, err := C.get_random_number(blockHashSlice, u64(height), &errmsg)
-	if err != nil {
-		return nil, fmt.Errorf("error")
+	for i := 0; i <= RETRIES; i++ {
+
+		res, err := C.get_random_number(blockHashSlice, u64(height), &errmsg)
+		if err == nil {
+			vec := receiveVector(res)
+			//data := binary.BigEndian.Uint64(vec)
+			//fmt.Println("Got data from enclave:", data, "\n")
+			if len(vec) != 80 {
+				return nil, fmt.Errorf("Got random from enclave with a weird length: ", len(vec))
+			}
+
+			ret := &EnclaveRandom{
+				Random: vec[0:48],
+				Proof:  vec[48:80],
+			}
+
+			return ret, nil
+		}
+		time.Sleep(SLEEP_MS * time.Millisecond)
+		// Error occurred, retry in the next iteration
 	}
 
-	vec := receiveVector(res)
-	//data := binary.BigEndian.Uint64(vec)
-	//fmt.Println("Got data from enclave:", data, "\n")
-	if len(vec) != 80 {
-		return nil, fmt.Errorf("Got random from enclave with a weird length: ", len(vec))
-	}
+	return nil, fmt.Errorf("failed to get random number from enclave after %d retries", RETRIES)
 
-	ret := &EnclaveRandom{
-		Random: vec[0:48],
-		Proof:  vec[48:80],
-	}
-
-	return ret, nil
 }
 
 func SubmitValidatorSet(valSet []byte, height uint64) error {
@@ -106,5 +115,5 @@ func SubmitValidatorSet(valSet []byte, height uint64) error {
 	}
 
 	// If we reach here, all retries have failed, return error
-	return fmt.Errorf("failed submitting validator set to enclave after %d retries", retries)
+	return fmt.Errorf("failed submitting validator set to enclave after %d retries", RETRIES)
 }
