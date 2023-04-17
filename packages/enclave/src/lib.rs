@@ -23,7 +23,7 @@ use sgx_trts::trts::rsgx_read_rand;
 use sgx_types::sgx_status_t;
 use crate::keys::{IRS, REK};
 
-use log::{error, info};
+use log::{debug, error, info};
 use tendermint::Hash;
 use tendermint::Hash::Sha256;
 use crate::validator_set::get_validator_set_hash;
@@ -89,7 +89,7 @@ pub unsafe extern "C" fn ecall_generate_random(
     let proof_computed = create_proof(height, encrypted.as_slice(), block_hash_slice);
     proof.copy_from_slice(proof_computed.as_slice());
 
-    info!("Calculated proof: {:?}", proof_computed);
+    debug!("Calculated proof: {:?}", proof_computed);
 
     sgx_status_t::SGX_SUCCESS
 }
@@ -158,8 +158,8 @@ pub unsafe extern "C" fn ecall_validate_random(
 
     let calculated_proof = create_proof(height, random_slice, block_hash_slice);
 
-    info!("Calculated proof: {:?}", calculated_proof);
-    info!("Got proof: {:?}", proof_slice);
+    debug!("Calculated proof: {:?}", calculated_proof);
+    debug!("Got proof: {:?}", proof_slice);
 
     if &calculated_proof != proof_slice {
         return sgx_status_t::SGX_ERROR_INVALID_SIGNATURE;
