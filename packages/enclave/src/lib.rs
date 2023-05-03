@@ -31,6 +31,10 @@ use crate::validator_set::get_validator_set_hash;
 use ctor::ctor;
 use enclave_utils::validator_set::ValidatorSetForHeight;
 
+use enclave_utils::{validate_const_ptr, validate_input_length};
+
+const MAX_VARIABLE_LENGTH: u32 = 100_000;
+
 #[ctor]
 fn init_logger() {
     let default_log_level = log::Level::Debug;
@@ -50,6 +54,8 @@ pub unsafe extern "C" fn ecall_generate_random(
     random: &mut [u8; 48],
     proof: &mut [u8; 32]
 ) -> sgx_status_t {
+
+    validate_const_ptr!(block_hash, block_hash_len as usize, sgx_status_t::SGX_ERROR_INVALID_PARAMETER);
 
     if block_hash_len != 32 {
         error!("block hash bad length");
@@ -89,7 +95,7 @@ pub unsafe extern "C" fn ecall_generate_random(
     let proof_computed = create_proof(height, encrypted.as_slice(), block_hash_slice);
     proof.copy_from_slice(proof_computed.as_slice());
 
-    info!("Calculated proof: {:?}", proof_computed);
+    // debug!("Calculated proof: {:?}", proof_computed);
 
     sgx_status_t::SGX_SUCCESS
 }
@@ -100,6 +106,10 @@ pub unsafe extern "C" fn ecall_submit_validator_set(
     val_set_len: u32,
     height: u64
 ) -> sgx_status_t {
+
+    validate_input_length!(val_set_len, "validator set length", MAX_VARIABLE_LENGTH);
+    validate_const_ptr!(val_set, val_set_len as usize, sgx_status_t::SGX_ERROR_INVALID_PARAMETER);
+
     let val_set_slice = slice::from_raw_parts(val_set, val_set_len as usize);
 
     let val_set = ValidatorSetForHeight {
@@ -122,11 +132,6 @@ fn create_proof(height: u64, random: &[u8], block_hash: &[u8]) -> [u8; 32] {
     data.extend_from_slice(random);
     data.extend_from_slice(block_hash);
     data.extend_from_slice(IRS.get());
-    // let mut hasher = fSha256::new();
-    // hasher.update(&height.to_be_bytes());
-    // hasher.update(random);
-    // hasher.update(block_hash);
-    // hasher.update(IRS.get());
 
     sha_256(data.as_slice())
 }
@@ -142,24 +147,22 @@ pub unsafe extern "C" fn ecall_validate_random(
     height: u64,
 ) -> sgx_status_t {
 
-    //    if block_hash_len != 32 {
-    //         error!("block hash bad length");
-    //         return sgx_status_t::SGX_ERROR_UNEXPECTED;
-    //     }
-    let random_slice = slice::from_raw_parts(random, random_len as usize);
-    let proof_slice = slice::from_raw_parts(proof, proof_len as usize);
-
+    validate_input_length!(random_len, "proof", MAX_VARIABLE_LENGTH);
+    validate_input_length!(proof_len, "encrypted random", MAX_VARIABLE_LENGTH);
     if block_hash_len != 32 {
         error!("block hash bad length");
         return sgx_status_t::SGX_ERROR_UNEXPECTED;
     }
+
+    validate_const_ptr!(random, random_len as usize, sgx_status_t::SGX_ERROR_INVALID_PARAMETER);
+    validate_const_ptr!(proof, proof_len as usize, sgx_status_t::SGX_ERROR_INVALID_PARAMETER);
+    validate_const_ptr!(block_hash, block_hash_len as usize, sgx_status_t::SGX_ERROR_INVALID_PARAMETER);
+
+    let random_slice = slice::from_raw_parts(random, random_len as usize);
+    let proof_slice = slice::from_raw_parts(proof, proof_len as usize);
     let block_hash_slice = slice::from_raw_parts(block_hash, block_hash_len as usize);
 
-
     let calculated_proof = create_proof(height, random_slice, block_hash_slice);
-
-    info!("Calculated proof: {:?}", calculated_proof);
-    info!("Got proof: {:?}", proof_slice);
 
     if &calculated_proof != proof_slice {
         return sgx_status_t::SGX_ERROR_INVALID_SIGNATURE;
