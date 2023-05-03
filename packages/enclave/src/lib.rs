@@ -31,9 +31,21 @@ use crate::validator_set::get_validator_set_hash;
 use ctor::ctor;
 use enclave_utils::validator_set::ValidatorSetForHeight;
 
-use enclave_utils::{validate_const_ptr, validate_input_length};
+use enclave_utils::{validate_const_ptr};
 
 const MAX_VARIABLE_LENGTH: u32 = 100_000;
+
+macro_rules! validate_input_length {
+    ($input:expr, $var_name:expr, $constant:expr) => {
+        if $input > $constant {
+            error!(
+                "Error: {} ({}) is larger than the constant value ({})",
+                $var_name, $input, $constant
+            );
+            return sgx_status_t::SGX_ERROR_INVALID_PARAMETER;
+        }
+    };
+}
 
 #[ctor]
 fn init_logger() {
