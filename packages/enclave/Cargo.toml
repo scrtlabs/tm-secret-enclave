@@ -1,6 +1,6 @@
 [package]
-name = "random-enclave-demo"
-version = "0.0.1"
+name = "tendermint-enclave-vrf"
+version = "1.0.0"
 authors = ["SCRT Labs <info@scrtlabs.com>"]
 edition = "2018"
 description = "An enclave not doing much"
@@ -14,6 +14,11 @@ default = ["SGX_MODE_SW"]
 SGX_MODE_SW = []
 SGX_MODE_HW = []
 production = ["SGX_MODE_HW"]
+
+# for compatability
+light-client-validation = []
+random = []
+verify-validator-whitelist = []
 
 # This annotation is here to trick the IDE into showing us type information about this crate.
 # We always compile to the "sgx" target, so this will always be false.
