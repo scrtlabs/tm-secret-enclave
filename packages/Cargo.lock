@@ -100,7 +100,7 @@ version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "89b2fd2a0dcf38d7971e2194b6b6eebab45ae01067456a7fd93d5547a61b70be"
 dependencies = [
- "serde 1.0.162",
+ "serde 1.0.163",
 ]
 
 [[package]]
@@ -143,7 +143,7 @@ checksum = "6245d59a3e82a7fc217c5828a6692dbc6dfb63a0c8c90495621f7b9d79704a0e"
 [[package]]
 name = "cosmos_proto"
 version = "1.6.0"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 dependencies = [
  "protobuf",
 ]
@@ -243,9 +243,9 @@ dependencies = [
 
 [[package]]
 name = "digest"
-version = "0.10.6"
+version = "0.10.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8168378f4e5023e7218c89c891c0fd8ecdb5e5e4f18cb78f38cf245dd021e76f"
+checksum = "9ed9a281f7bc9b7576e61468ba615a66a5c8cfdff42420a70aa82701a3b1e292"
 dependencies = [
  "block-buffer 0.10.4",
  "crypto-common",
@@ -281,7 +281,7 @@ checksum = "7fcaabb2fef8c910e7f4c7ce9f67a1283a1715879a7c230ca9d6d1ae31f16d91"
 [[package]]
 name = "enclave-ffi-types"
 version = "0.1.0"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 dependencies = [
  "derive_more",
 ]
@@ -289,7 +289,7 @@ dependencies = [
 [[package]]
 name = "enclave_crypto"
 version = "1.6.0"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 dependencies = [
  "aes-siv",
  "cosmos_proto",
@@ -302,9 +302,9 @@ dependencies = [
  "ripemd160",
  "rustls",
  "secp256k1",
- "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_tstd 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
+ "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_tstd 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
  "sha2 0.10.6",
  "sha3",
  "webpki",
@@ -315,16 +315,16 @@ dependencies = [
 [[package]]
 name = "enclave_utils"
 version = "1.6.0"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 dependencies = [
  "enclave-ffi-types",
  "lazy_static",
  "log",
  "serde 1.0.118",
  "serde_json 1.0.60",
- "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_tstd 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
+ "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_tstd 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
 ]
 
 [[package]]
@@ -410,7 +410,7 @@ dependencies = [
 [[package]]
 name = "hashbrown_tstd"
 version = "0.12.0"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 
 [[package]]
 name = "hashbrown_tstd"
@@ -472,18 +472,15 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "libc"
-version = "0.2.143"
+version = "0.2.144"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "edc207893e85c5d6be840e969b496b53d94cec8be2d501b214f50daa97fa8024"
+checksum = "2b00cc1c228a6782d0f076e7b232802e0c5689d41bb5df366f2a6b6621cfdfe1"
 
 [[package]]
 name = "log"
-version = "0.4.17"
+version = "0.4.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "abb12e687cfb44aa40f41fc3978ef76448f9b6038cad6aef4259d3c095a2382e"
-dependencies = [
- "cfg-if",
-]
+checksum = "518ef76f2f87365916b142844c16d8fefd85039bc5699050210a7778ee1cd1de"
 
 [[package]]
 name = "num-derive"
@@ -507,9 +504,9 @@ dependencies = [
 
 [[package]]
 name = "once_cell"
-version = "1.17.1"
+version = "1.17.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b7e5500299e16ebb147ae15a00a942af264cf3688f47923b8fc2cd5858f23ad3"
+checksum = "9670a07f94779e00908f3e686eab508878ebb390ba6e604d3a284c00e8d0487b"
 
 [[package]]
 name = "opaque-debug"
@@ -537,9 +534,9 @@ checksum = "8b870d8c151b6f2fb93e84a13146138f05d02ed11c7e7c54f8826aaaf7c9f184"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.56"
+version = "1.0.59"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b63bdb0cd06f1f4dedf69b254734f9b45af66e4a031e42a7480257d9898b435"
+checksum = "6aeca18b86b413c660b781aa319e4e2648a3e6f9eadc9b47e9038e6fe9f3451b"
 dependencies = [
  "unicode-ident",
 ]
@@ -584,9 +581,9 @@ checksum = "106dd99e98437432fed6519dedecfade6a06a73bb7b2a1e019fdd2bee5778d94"
 
 [[package]]
 name = "quote"
-version = "1.0.26"
+version = "1.0.28"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4424af4bf778aae2051a77b60283332f386554255d722233d09fbfc7e30da2fc"
+checksum = "1b9ab9c7eadfd8df19006f1cf1a4aed13540ed5cbc047010ece5826e10825488"
 dependencies = [
  "proc-macro2",
 ]
@@ -691,11 +688,11 @@ dependencies = [
 
 [[package]]
 name = "serde"
-version = "1.0.162"
+version = "1.0.163"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "71b2f6e1ab5c2b98c05f0f35b236b22e8df7ead6ffbf51d7808da7f8817e7ab6"
+checksum = "2113ab51b87a539ae008b5c6c02dc020ffa39afd2d83cffcb3f4eb2722cebec2"
 dependencies = [
- "serde_derive 1.0.162",
+ "serde_derive 1.0.163",
 ]
 
 [[package]]
@@ -704,7 +701,7 @@ version = "0.11.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "416bda436f9aab92e02c8e10d49a15ddd339cea90b6e340fe51ed97abb548294"
 dependencies = [
- "serde 1.0.162",
+ "serde 1.0.163",
 ]
 
 [[package]]
@@ -719,13 +716,13 @@ dependencies = [
 
 [[package]]
 name = "serde_derive"
-version = "1.0.162"
+version = "1.0.163"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a2a0814352fd64b58489904a44ea8d90cb1a91dcb6b4f5ebabc32c8318e93cb6"
+checksum = "8c805777e3930c8883389c602315a24224bcc738b63905ef87cd1420353ea93e"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.15",
+ "syn 2.0.18",
 ]
 
 [[package]]
@@ -747,7 +744,7 @@ checksum = "057d394a50403bcac12672b2b18fb387ab6d289d957dab67dd201875391e52f1"
 dependencies = [
  "itoa 1.0.6",
  "ryu",
- "serde 1.0.162",
+ "serde 1.0.163",
 ]
 
 [[package]]
@@ -758,13 +755,13 @@ checksum = "bcec881020c684085e55a25f7fd888954d56609ef363479dc5a1305eb0d40cab"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.15",
+ "syn 2.0.18",
 ]
 
 [[package]]
 name = "sgx_alloc"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 
 [[package]]
 name = "sgx_alloc"
@@ -774,11 +771,11 @@ source = "git+https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git?rev=5bf
 [[package]]
 name = "sgx_backtrace_sys"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 dependencies = [
  "cc",
- "sgx_build_helper 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
+ "sgx_build_helper 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
 ]
 
 [[package]]
@@ -794,7 +791,7 @@ dependencies = [
 [[package]]
 name = "sgx_build_helper"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 
 [[package]]
 name = "sgx_build_helper"
@@ -804,7 +801,7 @@ source = "git+https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git?rev=5bf
 [[package]]
 name = "sgx_demangle"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 
 [[package]]
 name = "sgx_demangle"
@@ -814,9 +811,9 @@ source = "git+https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git?rev=5bf
 [[package]]
 name = "sgx_libc"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 dependencies = [
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
 ]
 
 [[package]]
@@ -830,10 +827,10 @@ dependencies = [
 [[package]]
 name = "sgx_tprotected_fs"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 dependencies = [
- "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
+ "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
 ]
 
 [[package]]
@@ -848,10 +845,10 @@ dependencies = [
 [[package]]
 name = "sgx_trts"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 dependencies = [
- "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
+ "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
 ]
 
 [[package]]
@@ -866,17 +863,17 @@ dependencies = [
 [[package]]
 name = "sgx_tstd"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 dependencies = [
- "hashbrown_tstd 0.12.0 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_alloc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_backtrace_sys 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_demangle 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_tprotected_fs 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
- "sgx_unwind 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
+ "hashbrown_tstd 0.12.0 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_alloc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_backtrace_sys 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_demangle 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_libc 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_tprotected_fs 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_trts 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_types 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
+ "sgx_unwind 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
 ]
 
 [[package]]
@@ -898,7 +895,7 @@ dependencies = [
 [[package]]
 name = "sgx_types"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 
 [[package]]
 name = "sgx_types"
@@ -908,9 +905,9 @@ source = "git+https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git?rev=5bf
 [[package]]
 name = "sgx_unwind"
 version = "1.1.5"
-source = "git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3#01879649901cea407b50e9e7f854ad13793b1324"
+source = "git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4#391c229ebf51072bee8eed22c03414c1bf82bba4"
 dependencies = [
- "sgx_build_helper 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?tag=v1.9.3)",
+ "sgx_build_helper 1.1.5 (git+https://github.com/scrtlabs/SecretNetwork.git?rev=391c229ebf51072bee8eed22c03414c1bf82bba4)",
 ]
 
 [[package]]
@@ -942,7 +939,7 @@ checksum = "82e6b795fe2e3b1e845bafcb27aa35405c4d47cdfc92af5fc8d3002f76cebdc0"
 dependencies = [
  "cfg-if",
  "cpufeatures",
- "digest 0.10.6",
+ "digest 0.10.7",
 ]
 
 [[package]]
@@ -951,7 +948,7 @@ version = "0.10.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "75872d278a8f37ef87fa0ddbda7802605cb18344497949862c0d4dcb291eba60"
 dependencies = [
- "digest 0.10.6",
+ "digest 0.10.7",
  "keccak",
 ]
 
@@ -1006,9 +1003,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "2.0.15"
+version = "2.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a34fcf3e8b60f57e6a14301a2e916d323af98b0ea63c599441eec8558660c822"
+checksum = "32d41677bcbe24c20c52e7c70b0d8db04134c5d1066bf98662e2871ad200ea3e"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1018,7 +1015,7 @@ dependencies = [
 [[package]]
 name = "tendermint"
 version = "0.28.0"
-source = "git+https://github.com/scrtlabs/tendermint-rs?branch=fix-val-set-parsing#4019839ff894e531fbe4187f8461e4395d203220"
+source = "git+https://github.com/scrtlabs/tendermint-rs?branch=fix-val-set-parsing#b75754a49981f8e52fa12b8c17a38ebda575f807"
 dependencies = [
  "bytes",
  "ed25519",
@@ -1029,7 +1026,7 @@ dependencies = [
  "once_cell",
  "prost",
  "prost-types",
- "serde 1.0.162",
+ "serde 1.0.163",
  "serde_bytes",
  "serde_json 1.0.96",
  "serde_repr",
@@ -1065,7 +1062,7 @@ dependencies = [
 [[package]]
 name = "tendermint-proto"
 version = "0.28.0"
-source = "git+https://github.com/scrtlabs/tendermint-rs?branch=fix-val-set-parsing#4019839ff894e531fbe4187f8461e4395d203220"
+source = "git+https://github.com/scrtlabs/tendermint-rs?branch=fix-val-set-parsing#b75754a49981f8e52fa12b8c17a38ebda575f807"
 dependencies = [
  "bytes",
  "flex-error",
@@ -1073,7 +1070,7 @@ dependencies = [
  "num-traits",
  "prost",
  "prost-types",
- "serde 1.0.162",
+ "serde 1.0.163",
  "serde_bytes",
  "subtle-encoding",
  "time",
@@ -1112,9 +1109,9 @@ checksum = "497961ef93d974e23eb6f433eb5fe1b7930b659f06d12dec6fc44a8f554c0bba"
 
 [[package]]
 name = "unicode-ident"
-version = "1.0.8"
+version = "1.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e5464a87b239f13a63a501f2701565754bae92d243d4bb7eb12f6d57d2269bf4"
+checksum = "b15811caf2415fb889178633e7724bad2509101cde276048e013b9def5e51fa0"
 
 [[package]]
 name = "untrusted"
@@ -1254,5 +1251,5 @@ checksum = "ce36e65b0d2999d2aafac989fb249189a141aee1f53c612c1f37d72631959f69"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.15",
+ "syn 2.0.18",
 ]
