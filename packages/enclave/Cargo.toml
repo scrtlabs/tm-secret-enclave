@@ -14,7 +14,6 @@ default = ["SGX_MODE_SW"]
 SGX_MODE_SW = []
 SGX_MODE_HW = []
 production = ["SGX_MODE_HW"]
-
 # for compatability
 light-client-validation = []
 random = []
@@ -25,8 +24,8 @@ verify-validator-whitelist = []
 # when compiling to the "sgx" target, we pull this from the target root with an "extern crate" directive
 [target.'cfg(not(target_env = "sgx"))'.dependencies]
 sgx_tstd = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e", features = [
-    "backtrace"
-  ] }
+  "backtrace"
+] }
 sgx_types = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
 sgx_trts = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
 
@@ -39,12 +38,12 @@ ctor = "0.1.26"
 derive_more = "0.99"
 tendermint = { version = "=0.28.0", default-features = false }
 tendermint-proto = { version = "=0.28.0", default-features = false }
-
 # for attestation
 lazy_static = "1.4"
 log = "0.4.17"
-simple_logger = { version = "4.0.0", default-features = false, features = ["stderr"] }
-
-enclave_crypto = { git = "https://github.com/scrtlabs/SecretNetwork.git", rev = "a3edd6669806da8e9657f466dced09d51dda8d6f" }
-enclave_utils = { git = "https://github.com/scrtlabs/SecretNetwork.git", rev = "a3edd6669806da8e9657f466dced09d51dda8d6f" }
+simple_logger = { version = "4.0.0", default-features = false, features = [
+  "stderr"
+] }
+enclave_crypto = { git = "https://github.com/scrtlabs/SecretNetwork.git", tag = "v1.9.3" }
+enclave_utils = { git = "https://github.com/scrtlabs/SecretNetwork.git", tag = "v1.9.3" }
 # enclave_utils = { path = "../../../../GolandProjects/SecretNetwork/cosmwasm/enclaves/shared/utils"}
