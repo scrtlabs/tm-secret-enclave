@@ -1,6 +1,6 @@
 [package]
 name = "tendermint-enclave-vrf"
-version = "1.0.0"
+version = "1.11.0"
 authors = ["SCRT Labs <info@scrtlabs.com>"]
 edition = "2018"
 description = "An enclave not doing much"
@@ -16,18 +16,18 @@ SGX_MODE_HW = []
 production = ["SGX_MODE_HW"]
 # for compatability
 light-client-validation = []
-random = []
+random = ["enclave_utils/random"]
 verify-validator-whitelist = []
 
 # This annotation is here to trick the IDE into showing us type information about this crate.
 # We always compile to the "sgx" target, so this will always be false.
 # when compiling to the "sgx" target, we pull this from the target root with an "extern crate" directive
 [target.'cfg(not(target_env = "sgx"))'.dependencies]
-sgx_tstd = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e", features = [
+sgx_tstd = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "60cb9758297beecff401c6b813a3b42c195925e0", features = [
   "backtrace"
 ] }
-sgx_types = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
-sgx_trts = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "5bf3100b741851af240a50673e49f89f243e122e" }
+sgx_types = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "60cb9758297beecff401c6b813a3b42c195925e0" }
+sgx_trts = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "60cb9758297beecff401c6b813a3b42c195925e0" }
 
 [dependencies]
 serde = { git = "https://github.com/mesalock-linux/serde-sgx", features = [
@@ -44,6 +44,6 @@ log = "0.4.17"
 simple_logger = { version = "4.0.0", default-features = false, features = [
   "stderr"
 ] }
-enclave_crypto = { git = "https://github.com/scrtlabs/SecretNetwork.git", rev = "391c229ebf51072bee8eed22c03414c1bf82bba4" }
-enclave_utils = { git = "https://github.com/scrtlabs/SecretNetwork.git", rev = "391c229ebf51072bee8eed22c03414c1bf82bba4" }
+enclave_crypto = { git = "https://github.com/scrtlabs/SecretNetwork.git", rev = "05cc0ff898ad0bdc12e66c4e7cd16a68d19f7810" }
+enclave_utils = { git = "https://github.com/scrtlabs/SecretNetwork.git", rev = "05cc0ff898ad0bdc12e66c4e7cd16a68d19f7810" }
 # enclave_utils = { path = "../../../../GolandProjects/SecretNetwork/cosmwasm/enclaves/shared/utils"}
