@@ -187,7 +187,7 @@ pub unsafe extern "C" fn ecall_validate_random(
 
         if calculated_proof != proof_slice {
             // otherwise on an upgrade this will break horribly - next patch we can remove this
-            legacy_proof = create_legacy_proof(height, random_slice, block_hash_slice);
+            let legacy_proof = create_legacy_proof(height, random_slice, block_hash_slice);
             if legacy_proof != calculated_proof {
                 return sgx_status_t::SGX_ERROR_INVALID_SIGNATURE;
             }
