@@ -1,3 +1,3 @@
 module github.com/scrtlabs/tm-secret-enclave
 
-go 1.19
+go 1.20
