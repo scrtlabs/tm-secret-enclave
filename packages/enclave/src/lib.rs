@@ -186,9 +186,24 @@ pub unsafe extern "C" fn ecall_validate_random(
         // debug!("Got proof: {:?}", proof_slice);
 
         if calculated_proof != proof_slice {
-            return sgx_status_t::SGX_ERROR_INVALID_SIGNATURE;
+            // otherwise on an upgrade this will break horribly - next patch we can remove this
+            legacy_proof = create_legacy_proof(height, random_slice, block_hash_slice);
+            if legacy_proof != calculated_proof {
+                return sgx_status_t::SGX_ERROR_INVALID_SIGNATURE;
+            }
         }
     }
 
     sgx_status_t::SGX_SUCCESS
+}
+
+fn create_legacy_proof(height: u64, random: &[u8], block_hash: &[u8]) -> [u8; 32] {
+
+    let mut data = vec![];
+    data.extend_from_slice(&height.to_be_bytes());
+    data.extend_from_slice(random);
+    data.extend_from_slice(block_hash);
+    data.extend_from_slice(IRS.get());
+
+    sha_256(data.as_slice())
 }
