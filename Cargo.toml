@@ -47,10 +47,10 @@ sgx_edl = { path = "deps/incubator-teaclave-sgx-sdk/sgx_edl" }
 
 [profile.release]
 opt-level = 3
-debug = false
+debug = true
 rpath = true
 lto = false
-debug-assertions = false
+debug-assertions = true
 codegen-units = 16
 panic = 'unwind'
 incremental = true
