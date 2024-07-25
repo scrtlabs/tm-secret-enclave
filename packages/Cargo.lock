@@ -1412,13 +1412,3 @@ dependencies = [
  "quote",
  "syn 2.0.72",
 ]
-
-[[patch.unused]]
-name = "tendermint"
-version = "0.28.0"
-source = "git+https://github.com/scrtlabs/tendermint-rs?branch=fix-val-set-parsing#b75754a49981f8e52fa12b8c17a38ebda575f807"
-
-[[patch.unused]]
-name = "tendermint-proto"
-version = "0.28.0"
-source = "git+https://github.com/scrtlabs/tendermint-rs?branch=fix-val-set-parsing#b75754a49981f8e52fa12b8c17a38ebda575f807"
