@@ -44,6 +44,6 @@ log = "0.4.17"
 simple_logger = { version = "4.0.0", default-features = false, features = [
   "stderr"
 ] }
-enclave_crypto = { git = "https://github.com/scrtlabs/SecretNetwork.git", rev = "b6021e178562d60d54e1ef3d45e1eaccf748ffd8" }
-enclave_utils = { git = "https://github.com/scrtlabs/SecretNetwork.git", rev = "b6021e178562d60d54e1ef3d45e1eaccf748ffd8" }
+enclave_crypto = { git = "https://github.com/scrtlabs/SecretNetwork.git", rev = "63327a214331ec3598c83177d78389643e87d1ff" }
+enclave_utils = { git = "https://github.com/scrtlabs/SecretNetwork.git", rev = "63327a214331ec3598c83177d78389643e87d1ff" }
 # enclave_utils = { path = "../../../../GolandProjects/SecretNetwork/cosmwasm/enclaves/shared/utils"}
