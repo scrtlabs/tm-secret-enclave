@@ -23,11 +23,11 @@ verify-validator-whitelist = []
 # We always compile to the "sgx" target, so this will always be false.
 # when compiling to the "sgx" target, we pull this from the target root with an "extern crate" directive
 [target.'cfg(not(target_env = "sgx"))'.dependencies]
-sgx_tstd = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "c4e9339465e3e425af4c86cf5c4c027ca8a03c31", features = [
+sgx_tstd = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", tag = "secret-1.0.0", features = [
   "backtrace"
 ] }
-sgx_types = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "c4e9339465e3e425af4c86cf5c4c027ca8a03c31" }
-sgx_trts = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", rev = "c4e9339465e3e425af4c86cf5c4c027ca8a03c31" }
+sgx_types = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", tag = "secret-1.0.0" }
+sgx_trts = { git = "https://github.com/scrtlabs/incubator-teaclave-sgx-sdk.git", tag = "secret-1.0.0" }
 
 [dependencies]
 serde = { git = "https://github.com/mesalock-linux/serde-sgx", features = [
@@ -36,8 +36,8 @@ serde = { git = "https://github.com/mesalock-linux/serde-sgx", features = [
 serde_json = { git = "https://github.com/mesalock-linux/serde-json-sgx" }
 ctor = "0.1.26"
 derive_more = "0.99"
-tendermint = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "v0.38.0", default-features = false, features = ["rust-crypto"] }
-tendermint-proto = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "v0.38.0", default-features = false }
+tendermint = { git = "https://github.com/scrtlabs/tendermint-rs", tag = "v0.38.0-secret.1", default-features = false, features = ["rust-crypto"] }
+tendermint-proto = { git = "https://github.com/scrtlabs/tendermint-rs", tag = "v0.38.0-secret.1", default-features = false }
 # for attestation
 lazy_static = "1.4"
 log = "0.4.17"

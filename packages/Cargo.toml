@@ -24,5 +24,5 @@ sgx_types = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_types" }
 sgx_unwind = { path = "../deps/incubator-teaclave-sgx-sdk/sgx_unwind" }
 
 [patch.crates-io]
-tendermint = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "v0.38.0" }
-tendermint-proto = { git = "https://github.com/scrtlabs/tendermint-rs", branch = "v0.38.0" }
+tendermint = { git = "https://github.com/scrtlabs/tendermint-rs", tag = "v0.38.0-secret.1" }
+tendermint-proto = { git = "https://github.com/scrtlabs/tendermint-rs", tag = "v0.38.0-secret.1" }
