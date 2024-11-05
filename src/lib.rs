@@ -3,7 +3,7 @@ mod error;
 mod logger;
 mod memory;
 
-use crate::enclave::functions::{health_check, random_number};
+use crate::enclave::functions::random_number;
 use crate::error::{clear_error, set_error, Error};
 use ctor::ctor;
 use enclave::functions::next_validator_set;
@@ -16,20 +16,6 @@ fn init_logger() {
     simple_logger::init_with_level(get_log_level(default_log_level)).unwrap();
 }
 
-#[no_mangle]
-pub extern "C" fn get_health_check(err: Option<&mut Buffer>) -> Buffer {
-    match health_check() {
-        Err(e) => {
-            set_error(Error::enclave_err(e.to_string()), err);
-            Buffer::default()
-        }
-        Ok(res) => {
-            clear_error();
-            Buffer::from_vec(format!("{:?}", res).into_bytes())
-        }
-    }
-}
-//
 #[no_mangle]
 pub extern "C" fn validate_random(random: Buffer, proof: Buffer, block_hash: Buffer, height: u64) -> bool {
     let random_slice = match unsafe { random.read() } {

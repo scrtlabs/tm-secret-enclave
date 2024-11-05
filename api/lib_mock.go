@@ -13,10 +13,6 @@ type EnclaveRandom struct {
 	Proof  []byte `json:"proof"`
 }
 
-func GetHealthCheck() (int64, error) {
-	return 0, nil
-}
-
 func GetRandom(blockHash []byte, height uint64) (*EnclaveRandom, error) {
 	buf := make([]byte, 32)
 	_, err := rand.Read(buf)

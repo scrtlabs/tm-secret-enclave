@@ -5,9 +5,7 @@ import "github.com/scrtlabs/tm-secret-enclave/api"
 type EnclaveRandom = api.EnclaveRandom
 
 func HealthCheck() error {
-	_, err := api.GetHealthCheck()
-
-	return err
+	return nil
 }
 
 func GetRandom(blockHash []byte, height uint64) ([]byte, []byte, error) {

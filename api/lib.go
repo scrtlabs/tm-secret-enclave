@@ -33,17 +33,6 @@ type EnclaveRandom struct {
 	Proof  []byte `json:"proof"`
 }
 
-func GetHealthCheck() (int64, error) {
-	errmsg := C.Buffer{}
-
-	_, err := C.get_health_check(&errmsg)
-	if err != nil {
-		return 0, err
-	}
-
-	return 0, nil
-}
-
 func ValidateRandom(encryptedRandom EnclaveRandom, blockHash []byte, height uint64) bool {
 	// errmsg := C.Buffer{}
 	randomSlice := sendSlice(encryptedRandom.Random)
