@@ -1,14 +1,28 @@
-use crate::enclave::consts::ENCLAVE_FILE_NAME;
-use crate::enclave::enclave_api::{ecall_generate_random, ecall_health_check, ecall_submit_validator_set, ecall_validate_random};
-use crate::enclave::init::init_enclave;
+use crate::enclave::enclave_api::{ecall_generate_random, ecall_submit_validator_set, ecall_validate_random};
 use crate::Error;
-use sgx_types::{sgx_status_t, SgxResult};
+use sgx_types::{sgx_status_t, SgxResult, sgx_enclave_id_t};
+
+static mut S_EID: Option<sgx_enclave_id_t> = None;
+
+pub fn set_enclave(eid: u64) {
+    unsafe {
+        S_EID = Some(eid as sgx_enclave_id_t);
+    }
+}
+
+fn get_enclave() -> Result<sgx_enclave_id_t, crate::Error> {
+    unsafe {
+        if let Some(ret_val) = S_EID {
+            Ok(ret_val)
+        } else {
+            Err(Error::enclave_err("sgx enclave not set"))
+        }
+    }
+}
 
 pub fn random_number(block_hash: &[u8], height: u64) -> Result<Vec<u8>, crate::Error> {
-    let enclave =
-        init_enclave(ENCLAVE_FILE_NAME).map_err(|_| Error::enclave_err("sgx not available"))?;
 
-    let eid = enclave.geteid();
+    let eid = get_enclave()?;
     let mut retval = sgx_status_t::SGX_SUCCESS;
 
     let mut random = [0u8; 48];
@@ -40,8 +54,7 @@ pub fn random_number(block_hash: &[u8], height: u64) -> Result<Vec<u8>, crate::E
 
 pub fn next_validator_set(val_set: &[u8], height: u64) -> SgxResult<()> {
 
-    let enclave = init_enclave(ENCLAVE_FILE_NAME)?;
-    let eid = enclave.geteid();
+    let eid = get_enclave().map_err(|_| sgx_status_t::SGX_ERROR_ECALL_NOT_ALLOWED)?;
     let mut retval = sgx_status_t::SGX_SUCCESS;
 
 
@@ -61,9 +74,7 @@ pub fn next_validator_set(val_set: &[u8], height: u64) -> SgxResult<()> {
 }
 //
 pub fn enclave_validate_random(random: &[u8], proof: &[u8], block_hash: &[u8], height: u64) -> SgxResult<()> {
-    let enclave = init_enclave(ENCLAVE_FILE_NAME)?;
-
-    let eid = enclave.geteid();
+    let eid = get_enclave().map_err(|_| sgx_status_t::SGX_ERROR_ECALL_NOT_ALLOWED)?;
     let mut retval = sgx_status_t::SGX_SUCCESS;
     let status = unsafe {
         ecall_validate_random(

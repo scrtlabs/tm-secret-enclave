@@ -106,3 +106,7 @@ func SubmitValidatorSet(valSet []byte, height uint64) error {
 	// If we reach here, all retries have failed, return error
 	return fmt.Errorf("failed submitting validator set to enclave after %d retries", RETRIES)
 }
+
+func SetEnclave(eid uint64) {
+	C.set_enclave(eid)
+}

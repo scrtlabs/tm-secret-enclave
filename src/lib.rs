@@ -89,3 +89,8 @@ pub extern "C" fn submit_next_validator_set(val_set: Buffer, height: u64, err: O
         Ok(_) => clear_error(),
     }
 }
+
+#[no_mangle]
+pub extern "C" fn set_enclave(eid: u64) {
+    crate::enclave::functions::set_enclave(eid);
+}

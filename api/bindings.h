@@ -53,8 +53,6 @@ typedef struct Buffer {
   uintptr_t cap;
 } Buffer;
 
-struct Buffer get_health_check(struct Buffer *err);
-
 bool validate_random(struct Buffer random,
                      struct Buffer proof,
                      struct Buffer block_hash,
@@ -63,6 +61,8 @@ bool validate_random(struct Buffer random,
 struct Buffer get_random_number(struct Buffer block_hash, uint64_t height, struct Buffer *err);
 
 void submit_next_validator_set(struct Buffer val_set, uint64_t height, struct Buffer *err);
+
+void set_enclave(uint64_t eid);
 
 struct Buffer allocate_rust(const uint8_t *ptr, uintptr_t length);
 

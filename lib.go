@@ -23,3 +23,7 @@ func ValidateRandom(random []byte, proof []byte, blockHash []byte, height uint64
 		Random: random,
 	}, blockHash, height)
 }
+
+func SetEnclave(eid uint64) {
+	api.SetEnclave(eid)
+}

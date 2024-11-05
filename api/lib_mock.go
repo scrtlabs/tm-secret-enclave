@@ -33,3 +33,6 @@ func SubmitValidatorSet(valSet []byte, height uint64) error {
 func ValidateRandom(rand EnclaveRandom, blockHash []byte, height uint64) bool {
 	return true
 }
+
+func SetEnclave(eid uint64) {
+}
