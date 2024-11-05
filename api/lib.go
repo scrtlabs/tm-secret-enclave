@@ -108,5 +108,5 @@ func SubmitValidatorSet(valSet []byte, height uint64) error {
 }
 
 func SetEnclave(eid uint64) {
-	C.set_enclave(eid)
+	C.set_enclave(u64(eid))
 }
