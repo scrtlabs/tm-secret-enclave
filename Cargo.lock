@@ -237,6 +237,7 @@ dependencies = [
  "cbindgen",
  "ctor",
  "errno 0.2.8",
+ "libc",
  "log",
  "serde",
  "serde_json",
