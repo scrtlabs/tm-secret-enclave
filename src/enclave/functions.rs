@@ -61,11 +61,10 @@ pub fn random_number(block_hash: &[u8], height: u64) -> Result<Vec<u8>, crate::E
         
 
         // Cast the raw pointer to the correct function type
-        type Pfn = unsafe extern "C" fn(block_hash: &[u8], height: u64) -> Result<Vec<u8>, crate::Error>;
+        type Pfn = unsafe extern "C" fn(block_hash: &[u8], height: u64) -> Result<Vec<u8>, sgx_status_t>;
         let function: Pfn = std::mem::transmute(S_PFN_RANDOM_NUMBER);
-
-        function(block_hash, height)
-
+        
+        function(block_hash, height).map_err(|_| Error::RandomGeneration { msg: "status unexpected".to_string() })
     }
 }
 
