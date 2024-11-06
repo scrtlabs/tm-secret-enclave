@@ -1,34 +1,10 @@
-use crate::enclave::enclave_api::{ecall_generate_random, ecall_submit_validator_set, ecall_validate_random};
 use crate::Error;
 use sgx_types::{sgx_status_t, SgxResult, sgx_enclave_id_t};
 
 
 use libc::{dlsym, RTLD_DEFAULT, c_void};
 use std::ffi::CString;
-use std::ptr::{null, null_mut};
-
-static mut S_EID: Option<sgx_enclave_id_t> = None;
-
-pub fn set_enclave(eid: u64) {
-    println!("##### TM got eid={}", eid);
-    unsafe {
-        S_EID = Some(eid as sgx_enclave_id_t);
-    }
-}
-
-fn get_enclave() -> Result<sgx_enclave_id_t, crate::Error> {
-    unsafe {
-        if let Some(ret_val) = S_EID {
-            Ok(ret_val)
-        } else {
-            println!("##### TM no eid");
-            Err(Error::enclave_err("sgx enclave not set"))
-        }
-    }
-}
-
-//type Pfn_random_number = unsafe extern "C" fn(block_hash: &[u8], height: u64) -> Result<Vec<u8>, crate::Error>;
-//static mut S_PFN_RANDOM_NUMBER: Option<Pfn_random_number> = None;
+use std::ptr::{null_mut};
 
 type Symbol = *mut c_void;
 
@@ -85,36 +61,22 @@ pub fn next_validator_set(val_set: &[u8], height: u64) -> SgxResult<()> {
         function(val_set, height)
     }
 }
-//
+
+static mut S_PFN_VALIDATE_RANDOM: Symbol = null_mut();
+
 pub fn enclave_validate_random(random: &[u8], proof: &[u8], block_hash: &[u8], height: u64) -> SgxResult<()> {
 
-    println!("##### TM enclave_validate_random");
+    unsafe {
 
-    let eid = get_enclave().map_err(|_| sgx_status_t::SGX_ERROR_ECALL_NOT_ALLOWED)?;
-    let mut retval = sgx_status_t::SGX_SUCCESS;
-    let status = unsafe {
-        ecall_validate_random(
-            eid,
-            &mut retval,
-            random.as_ptr(),
-            random.len() as u32,
-            proof.as_ptr(),
-            proof.len() as u32,
-            block_hash.as_ptr(),
-            block_hash.len() as u32,
-            height
-        )
-    };
+        if !ensure_symbol_found("secret_impl_validate_random", &mut S_PFN_VALIDATE_RANDOM) {
+            return Err(sgx_status_t::SGX_ERROR_UNEXPECTED);
+        }
+        
 
-    println!("##### TM enclave_validate_random ret={}, status={}", retval, status);
-
-    if status != sgx_status_t::SGX_SUCCESS {
-        return Err(status);
+        // Cast the raw pointer to the correct function type
+        type Pfn = unsafe extern "C" fn(&[u8], &[u8], &[u8], height: u64) -> Result<(), sgx_status_t>;
+        let function: Pfn = std::mem::transmute(S_PFN_VALIDATE_RANDOM);
+        
+        function(random, proof, block_hash, height)
     }
-
-    if retval != sgx_status_t::SGX_SUCCESS {
-        return Err(retval);
-    }
-
-    return Ok(());
 }
