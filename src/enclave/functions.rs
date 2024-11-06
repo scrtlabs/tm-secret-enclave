@@ -50,7 +50,6 @@ fn ensure_symbol_found(name: &str, p_symbol: &mut Symbol) -> bool {
 
 static mut S_PFN_RANDOM_NUMBER: Symbol = null_mut();
 
-
 pub fn random_number(block_hash: &[u8], height: u64) -> Result<Vec<u8>, crate::Error> {
 
     unsafe {
@@ -61,36 +60,30 @@ pub fn random_number(block_hash: &[u8], height: u64) -> Result<Vec<u8>, crate::E
         
 
         // Cast the raw pointer to the correct function type
-        type Pfn = unsafe extern "C" fn(block_hash: &[u8], height: u64) -> Result<Vec<u8>, sgx_status_t>;
+        type Pfn = unsafe extern "C" fn(&[u8], height: u64) -> Result<Vec<u8>, sgx_status_t>;
         let function: Pfn = std::mem::transmute(S_PFN_RANDOM_NUMBER);
         
         function(block_hash, height).map_err(|_| Error::RandomGeneration { msg: "status unexpected".to_string() })
     }
 }
 
+static mut S_PFN_NEXT_VALIDATOR_SET: Symbol = null_mut();
+
 pub fn next_validator_set(val_set: &[u8], height: u64) -> SgxResult<()> {
 
-    println!("##### TM next_validator_set");
+    unsafe {
 
-    let eid = get_enclave().map_err(|_| sgx_status_t::SGX_ERROR_ECALL_NOT_ALLOWED)?;
-    let mut retval = sgx_status_t::SGX_SUCCESS;
+        if !ensure_symbol_found("secret_impl_next_validator_set", &mut S_PFN_NEXT_VALIDATOR_SET) {
+            return Err(sgx_status_t::SGX_ERROR_UNEXPECTED);
+        }
+        
 
-
-    let status = unsafe {
-        ecall_submit_validator_set(eid, &mut retval, val_set.as_ptr(), val_set.len() as u32, height)
-    };
-
-    println!("##### TM next_validator_set ret={}, status={}", retval, status);
-
-    if status != sgx_status_t::SGX_SUCCESS {
-        return Err(status);
+        // Cast the raw pointer to the correct function type
+        type Pfn = unsafe extern "C" fn(&[u8], height: u64) -> Result<(), sgx_status_t>;
+        let function: Pfn = std::mem::transmute(S_PFN_NEXT_VALIDATOR_SET);
+        
+        function(val_set, height)
     }
-
-    if retval != sgx_status_t::SGX_SUCCESS {
-        return Err(retval);
-    }
-
-    return Ok(());
 }
 //
 pub fn enclave_validate_random(random: &[u8], proof: &[u8], block_hash: &[u8], height: u64) -> SgxResult<()> {
