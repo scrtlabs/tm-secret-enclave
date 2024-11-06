@@ -62,8 +62,6 @@ struct Buffer get_random_number(struct Buffer block_hash, uint64_t height, struc
 
 void submit_next_validator_set(struct Buffer val_set, uint64_t height, struct Buffer *err);
 
-void set_enclave(uint64_t eid);
-
 struct Buffer allocate_rust(const uint8_t *ptr, uintptr_t length);
 
 void free_rust(struct Buffer buf);
