@@ -16,10 +16,9 @@ fn ensure_symbol_found(name: &str, p_symbol: &mut Symbol) -> bool {
         *p_symbol = unsafe { dlsym(RTLD_DEFAULT, symbol_name.as_ptr()) };
 
         if (*p_symbol).is_null() {
-            println!("### symbol {} not found", name);
+            println!("ERROR: symbol {} not found", name);
             return false;
         }
-        println!("### symbol {} loaded", name);
     }
     true
 }
