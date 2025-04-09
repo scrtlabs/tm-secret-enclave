@@ -23,3 +23,11 @@ func ValidateRandom(random []byte, proof []byte, blockHash []byte, height uint64
 		Random: random,
 	}, blockHash, height)
 }
+
+func SetImplicitHash(hash []byte) error {
+	return api.SetImplicitHash(hash)
+}
+
+func GetImplicitHash() ([]byte, error) {
+	return api.GetImplicitHash()
+}
