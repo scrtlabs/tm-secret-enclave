@@ -36,8 +36,8 @@ serde = { git = "https://github.com/mesalock-linux/serde-sgx", features = [
 serde_json = { git = "https://github.com/mesalock-linux/serde-json-sgx" }
 ctor = "0.1.26"
 derive_more = "0.99"
-tendermint = { git = "https://github.com/scrtlabs/tendermint-rs", tag = "v0.38.0-secret.1", default-features = false, features = ["rust-crypto"] }
-tendermint-proto = { git = "https://github.com/scrtlabs/tendermint-rs", tag = "v0.38.0-secret.1", default-features = false }
+tendermint = { git = "https://github.com/scrtlabs/tendermint-rs", tag = "v0.38.0-secret.4", default-features = false, features = ["rust-crypto"] }
+tendermint-proto = { git = "https://github.com/scrtlabs/tendermint-rs", tag = "v0.38.0-secret.4", default-features = false }
 # for attestation
 lazy_static = "1.4"
 log = "0.4.17"
