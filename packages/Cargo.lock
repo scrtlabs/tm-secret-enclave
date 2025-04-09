@@ -1196,7 +1196,7 @@ dependencies = [
 [[package]]
 name = "tendermint"
 version = "0.38.0"
-source = "git+https://github.com/scrtlabs/tendermint-rs?tag=v0.38.0-secret.1#2ab96d83b3609c8830f024e73553ae85fb200d5a"
+source = "git+https://github.com/scrtlabs/tendermint-rs?tag=v0.38.0-secret.4#fca937579f9348ffb7386217cf0162fe76352bc4"
 dependencies = [
  "bytes",
  "digest 0.10.7",
@@ -1244,7 +1244,7 @@ dependencies = [
 [[package]]
 name = "tendermint-proto"
 version = "0.38.0"
-source = "git+https://github.com/scrtlabs/tendermint-rs?tag=v0.38.0-secret.1#2ab96d83b3609c8830f024e73553ae85fb200d5a"
+source = "git+https://github.com/scrtlabs/tendermint-rs?tag=v0.38.0-secret.4#fca937579f9348ffb7386217cf0162fe76352bc4"
 dependencies = [
  "bytes",
  "flex-error",
