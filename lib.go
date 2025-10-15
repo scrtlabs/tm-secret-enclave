@@ -24,10 +24,10 @@ func ValidateRandom(random []byte, proof []byte, blockHash []byte, height uint64
 	}, blockHash, height)
 }
 
-func SetImplicitHash(hash []byte) error {
-	return api.SetImplicitHash(hash)
+func SetScheduledTxs(marshaledData []byte) error {
+	return api.SetScheduledTxs(marshaledData)
 }
 
-func GetImplicitHash() ([]byte, error) {
-	return api.GetImplicitHash()
+func GetScheduledTxs() ([]byte, error) {
+	return api.GetScheduledTxs()
 }

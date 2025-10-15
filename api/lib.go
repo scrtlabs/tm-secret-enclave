@@ -107,40 +107,31 @@ func SubmitValidatorSet(valSet []byte, height uint64) error {
 	return fmt.Errorf("failed submitting validator set to enclave after %d retries", RETRIES)
 }
 
-func SetImplicitHash(hash []byte) error {
-	// Ensure the hash is 32 bytes (SHA-256 digest size)
-	if len(hash) != 32 {
-		return fmt.Errorf("invalid hash length: expected 32, got %d", len(hash))
-	}
-
+// SetScheduledTxs stores pre-marshaled transaction data
+func SetScheduledTxs(marshaledData []byte) error {
 	errmsg := C.Buffer{}
-	hashSlice := sendSlice(hash)
-	defer freeAfterSend(hashSlice)
+	dataSlice := sendSlice(marshaledData)
+	defer freeAfterSend(dataSlice)
 
 	for i := 0; i <= RETRIES; i++ {
-		C.set_implicit_hash(hashSlice, &errmsg)
+		C.set_scheduled_txs(dataSlice, &errmsg)
 		if errmsg.len == 0 {
 			return nil
 		}
 		time.Sleep(SLEEP_MS * time.Millisecond)
 	}
-	return fmt.Errorf("failed setting implicit hash in enclave after %d retries", RETRIES)
+	return fmt.Errorf("failed setting scheduled txs in enclave after %d retries", RETRIES)
 }
 
-// GetImplicitHash retrieves the 32-byte implicit hash stored in the enclave.
-// It returns the hash as a byte slice or an error if the call fails.
-func GetImplicitHash() ([]byte, error) {
+// GetScheduledTxs retrieves marshaled transaction data
+func GetScheduledTxs() ([]byte, error) {
 	errmsg := C.Buffer{}
 	for i := 0; i <= RETRIES; i++ {
-		res := C.get_implicit_hash(&errmsg)
+		res := C.get_scheduled_txs(&errmsg)
 		if errmsg.len == 0 {
-			vec := receiveVector(res)
-			if len(vec) != 32 {
-				return nil, fmt.Errorf("implicit hash has invalid length: expected 32, got %d", len(vec))
-			}
-			return vec, nil
+			return receiveVector(res), nil
 		}
 		time.Sleep(SLEEP_MS * time.Millisecond)
 	}
-	return nil, fmt.Errorf("failed to get implicit hash from enclave after %d retries", RETRIES)
+	return nil, fmt.Errorf("failed to get scheduled txs from enclave after %d retries", RETRIES)
 }

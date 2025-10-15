@@ -91,49 +91,26 @@ pub extern "C" fn submit_next_validator_set(val_set: Buffer, height: u64, err: O
     }
 }
 
-/// The default implicit hash: SHA-256 hash of an empty slice.
-/// (e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855)
-const DEFAULT_IMPLICIT_HASH: [u8; 32] = [
-    0xe3, 0xb0, 0xc4, 0x42,
-    0x98, 0xfc, 0x1c, 0x14,
-    0x9a, 0xfb, 0xf4, 0xc8,
-    0x99, 0x6f, 0xb9, 0x24,
-    0x27, 0xae, 0x41, 0xe4,
-    0x64, 0x9b, 0x93, 0x4c,
-    0xa4, 0x95, 0x99, 0x1b,
-    0x78, 0x52, 0xb8, 0x55,
-];
+/// Global storage for implicit transactions (serialized as Tendermint Data)
+static IMPLICIT_TXS_DATA: Mutex<Vec<u8>> = Mutex::new(Vec::new());
 
-/// Global storage for the implicit hash protected by a Mutex.
-static IMPLICIT_HASH: Mutex<[u8; 32]> = Mutex::new(DEFAULT_IMPLICIT_HASH);
-
-/// ECALL: Sets the implicit hash in the enclave.
-/// Expects a Buffer containing exactly 32 bytes.
-/// On error, sets the error via the provided `err` parameter.
+/// ECALL: Sets the implicit transactions in the enclave.
 #[no_mangle]
-pub extern "C" fn set_implicit_hash(hash: Buffer, err: Option<&mut Buffer>) {
-    let hash_slice = match unsafe { hash.read() } {
+pub extern "C" fn set_scheduled_txs(txs_data: Buffer, err: Option<&mut Buffer>) {
+    let data_bytes = match unsafe { txs_data.read() } {
         None => {
-            set_error(Error::empty_arg("implicit_hash"), err);
+            set_error(Error::empty_arg("scheduled_transactions"), err);
             return;
         }
         Some(s) => s,
     };
 
-    if hash_slice.len() != 32 {
-        set_error(Error::enclave_err("Invalid implicit_hash length: expected 32 bytes"), err);
-        return;
-    }
-
-    match IMPLICIT_HASH.lock() {
+    match IMPLICIT_TXS_DATA.lock() {
         Ok(mut guard) => {
-            // Copy the provided 32 bytes into the global storage.
-            for (i, &byte) in hash_slice.iter().enumerate() {
-                guard[i] = byte;
-            }
+            *guard = data_bytes.to_vec();
         }
         Err(_) => {
-            set_error(Error::enclave_err("Failed to lock implicit hash storage"), err);
+            set_error(Error::enclave_err("Failed to lock implicit transactions storage"), err);
             return;
         }
     }
@@ -141,20 +118,18 @@ pub extern "C" fn set_implicit_hash(hash: Buffer, err: Option<&mut Buffer>) {
     clear_error();
 }
 
-/// ECALL: Retrieves the stored implicit hash from the enclave.
-/// Returns a Buffer containing 32 bytes.
-/// If an error occurs, sets the error via the provided `err` parameter and returns a default Buffer.
+/// ECALL: Retrieves the stored implicit transactions from the enclave.
 #[no_mangle]
-pub extern "C" fn get_implicit_hash(err: Option<&mut Buffer>) -> Buffer {
-    let guard = match IMPLICIT_HASH.lock() {
+pub extern "C" fn get_scheduled_txs(err: Option<&mut Buffer>) -> Buffer {
+    let guard = match IMPLICIT_TXS_DATA.lock() {
         Ok(g) => g,
         Err(_) => {
-            set_error(Error::enclave_err("Failed to lock implicit hash storage"), err);
+            set_error(Error::enclave_err("Failed to lock scheduled transactions storage"), err);
             return Buffer::default();
         }
     };
 
-    let hash_vec = guard.to_vec();
+    let data = guard.clone();
     clear_error();
-    Buffer::from_vec(hash_vec)
+    Buffer::from_vec(data)
 }
