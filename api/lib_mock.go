@@ -34,10 +34,10 @@ func ValidateRandom(rand EnclaveRandom, blockHash []byte, height uint64) bool {
 	return true
 }
 
-func GetImplicitHash() ([]byte, error) {
+func GetScheduledTxs() ([]byte, error) {
 	return nil, nil
 }
 
-func SetImplicitHash(hash []byte) error {
+func SetScheduledTxs(txs []byte) error {
 	return nil
 }

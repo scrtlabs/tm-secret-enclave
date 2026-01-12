@@ -63,18 +63,14 @@ struct Buffer get_random_number(struct Buffer block_hash, uint64_t height, struc
 void submit_next_validator_set(struct Buffer val_set, uint64_t height, struct Buffer *err);
 
 /**
- * ECALL: Sets the implicit hash in the enclave.
- * Expects a Buffer containing exactly 32 bytes.
- * On error, sets the error via the provided `err` parameter.
+ * ECALL: Sets the implicit transactions in the enclave.
  */
-void set_implicit_hash(struct Buffer hash, struct Buffer *err);
+void set_scheduled_txs(struct Buffer txs_data, struct Buffer *err);
 
 /**
- * ECALL: Retrieves the stored implicit hash from the enclave.
- * Returns a Buffer containing 32 bytes.
- * If an error occurs, sets the error via the provided `err` parameter and returns a default Buffer.
+ * ECALL: Retrieves the stored implicit transactions from the enclave.
  */
-struct Buffer get_implicit_hash(struct Buffer *err);
+struct Buffer get_scheduled_txs(struct Buffer *err);
 
 struct Buffer allocate_rust(const uint8_t *ptr, uintptr_t length);
 
